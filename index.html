@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emyot</title>
+    <meta
+      name="description"
+      content="I build small tools that make abstract things visible: a lambda calculus visualiser, a SQL playground, a LaTeX editor, and a pile of browser games."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14'%3E%CE%BB%3C/text%3E%3C/svg%3E" />
+
+    <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      // Reveals are opt-in from script, so the page is fully readable with no
+      // JavaScript at all rather than being a column of invisible sections.
+      document.documentElement.classList.add('js-reveal')
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="nav" id="nav">
+      <div class="wrap nav__inner">
+        <a class="nav__brand" href="#top">
+          <span class="nav__lambda" aria-hidden="true">&#955;</span>
+          <span>Emyot</span>
+        </a>
+        <nav class="nav__links">
+          <a href="#tromp">Lambda</a>
+          <a href="#projects">Projects</a>
+          <a href="#timeline">Timeline</a>
+          <a href="https://github.com/EmyoTyyy" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ─────────────────────────────────────────────── hero ── -->
+      <section class="hero" id="top">
+        <div class="wrap">
+          <div class="hero__text">
+            <p class="eyebrow">EmyoTyyy</p>
+            <h1>I build small things that make <span class="hl">big ideas visible</span>.</h1>
+            <p class="lede">
+              A lambda calculus you can watch reduce. A database you can poke at with SQL. A LaTeX
+              editor that keeps your files on your own disk. Everything here runs in a browser tab
+              or on your own machine, with nothing to sign up for.
+            </p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">
+                Open Tromp Diagrams
+              </a>
+              <a class="button button--ghost" href="https://github.com/EmyoTyyy" rel="noopener">
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          <!-- The centrepiece: a real reduction, drawn by the real layout code. -->
+          <figure class="stage" id="stage">
+            <figcaption class="stage__head">
+              <span class="stage__label">&#946;-reduction</span>
+              <span class="stage__title">plus 2 3</span>
+            </figcaption>
+
+            <div class="stage__frame">
+              <svg class="stage__svg" id="reduction" aria-hidden="true" focusable="false"></svg>
+              <noscript>
+                <p class="stage__fallback">
+                  The diagram animates with JavaScript on. The whole of Tromp Diagrams works the
+                  same way: no build step, no backend, just a page.
+                </p>
+              </noscript>
+            </div>
+
+            <p class="stage__term mono" id="term">&#955;m n f x. m f (n f x)</p>
+
+            <div class="stage__controls">
+              <button class="stage__play" id="play" type="button" aria-label="Pause the reduction">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5h2v9H5z M9 3.5h2v9H9z" /></svg>
+              </button>
+              <ol class="stage__steps" id="steps"></ol>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────── vocabulary ── -->
+      <section class="section vocab" id="vocab">
+        <div class="wrap">
+          <div class="section__head" data-reveal>
+            <h2>Six lines, and you can already read one.</h2>
+            <p>
+              A horizontal bar is a function. A vertical line dropping from it is the variable it
+              binds. A bar underneath joins a function to its argument. That is the entire notation,
+              and it is enough to draw every program that has ever been written.
+            </p>
+          </div>
+
+          <ul class="vocab__grid">
+            <li class="vocab__item" data-reveal style="--i: 0">
+              <div class="vocab__art"><svg viewBox="0 0 72 64" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="40" y2="24" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="40" stroke-linecap="butt"/></svg></div>
+              <h3>Identity</h3>
+              <p class="mono">&#955;x. x</p>
+              <p class="vocab__note">Takes a thing, hands it straight back.</p>
+            </li>
+            <li class="vocab__item" data-reveal style="--i: 1">
+              <div class="vocab__art"><svg viewBox="0 0 72 80" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="40" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="40" y2="40" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="56" stroke-linecap="butt"/></svg></div>
+              <h3>Constant</h3>
+              <p class="mono">&#955;x y. x</p>
+              <p class="vocab__note">Takes two, forgets the second. Also <em>true</em>.</p>
+            </li>
+            <li class="vocab__item" data-reveal style="--i: 2">
+              <div class="vocab__art"><svg viewBox="0 0 168 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="136" y2="40" stroke-linecap="square"/><line x1="24" y1="56" x2="136" y2="56" stroke-linecap="square"/><line x1="32" y1="88" x2="96" y2="88" stroke-linecap="square"/><line x1="32" y1="72" x2="64" y2="72" stroke-linecap="square"/><line x1="96" y1="72" x2="128" y2="72" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="56" x2="64" y2="72" stroke-linecap="butt"/><line x1="96" y1="40" x2="96" y2="88" stroke-linecap="butt"/><line x1="128" y1="56" x2="128" y2="72" stroke-linecap="butt"/></svg></div>
+              <h3>Substitution</h3>
+              <p class="mono">&#955;x y z. x z (y z)</p>
+              <p class="vocab__note">With K, enough to express anything computable.</p>
+            </li>
+            <li class="vocab__item" data-reveal style="--i: 3">
+              <div class="vocab__art"><svg viewBox="0 0 232 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="200" y2="24" stroke-linecap="square"/><line x1="32" y1="88" x2="128" y2="88" stroke-linecap="square"/><line x1="24" y1="40" x2="104" y2="40" stroke-linecap="square"/><line x1="32" y1="72" x2="64" y2="72" stroke-linecap="square"/><line x1="64" y1="56" x2="96" y2="56" stroke-linecap="square"/><line x1="120" y1="40" x2="200" y2="40" stroke-linecap="square"/><line x1="128" y1="72" x2="160" y2="72" stroke-linecap="square"/><line x1="160" y1="56" x2="192" y2="56" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="40" x2="64" y2="72" stroke-linecap="butt"/><line x1="96" y1="40" x2="96" y2="56" stroke-linecap="butt"/><line x1="128" y1="24" x2="128" y2="88" stroke-linecap="butt"/><line x1="160" y1="40" x2="160" y2="72" stroke-linecap="butt"/><line x1="192" y1="40" x2="192" y2="56" stroke-linecap="butt"/></svg></div>
+              <h3>Fixed point</h3>
+              <p class="mono">&#955;f. (&#955;x. f (x x)) (&#955;x. f (x x))</p>
+              <p class="vocab__note">How a language with no names writes a loop.</p>
+            </li>
+            <li class="vocab__item" data-reveal style="--i: 4">
+              <div class="vocab__art"><svg viewBox="0 0 168 96" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="32" y1="56" x2="96" y2="56" stroke-linecap="square"/><line x1="24" y1="24" x2="72" y2="24" stroke-linecap="square"/><line x1="32" y1="40" x2="64" y2="40" stroke-linecap="square"/><line x1="88" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="96" y1="40" x2="128" y2="40" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="72" stroke-linecap="butt"/><line x1="64" y1="24" x2="64" y2="40" stroke-linecap="butt"/><line x1="96" y1="24" x2="96" y2="56" stroke-linecap="butt"/><line x1="128" y1="24" x2="128" y2="40" stroke-linecap="butt"/></svg></div>
+              <h3>Omega</h3>
+              <p class="mono">(&#955;x. x x) (&#955;x. x x)</p>
+              <p class="vocab__note">Reduces to itself. Runs forever, on purpose.</p>
+            </li>
+            <li class="vocab__item" data-reveal style="--i: 5">
+              <div class="vocab__art"><svg viewBox="0 0 168 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="136" y2="40" stroke-linecap="square"/><line x1="32" y1="88" x2="64" y2="88" stroke-linecap="square"/><line x1="64" y1="72" x2="96" y2="72" stroke-linecap="square"/><line x1="96" y1="56" x2="128" y2="56" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="24" x2="64" y2="88" stroke-linecap="butt"/><line x1="96" y1="24" x2="96" y2="72" stroke-linecap="butt"/><line x1="128" y1="40" x2="128" y2="56" stroke-linecap="butt"/></svg></div>
+              <h3>Three</h3>
+              <p class="mono">&#955;f x. f (f (f x))</p>
+              <p class="vocab__note">A number, written as "do it three times".</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────── the big one ── -->
+      <section class="section feature" id="tromp">
+        <div class="wrap">
+          <div class="feature__head" data-reveal>
+            <p class="eyebrow">The big one</p>
+            <h2>Tromp Diagrams</h2>
+            <p class="feature__lede">
+              A whole site for looking at lambda calculus instead of only reading about it. Type an
+              expression, watch it become a picture, then watch the picture reduce. Twelve pages of
+              it, in plain HTML, CSS and JavaScript: no build step, no package manager, no backend,
+              and no dependency on anything outside the folder.
+            </p>
+            <div class="feature__actions">
+              <a class="button button--primary" href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">
+                Open the site
+              </a>
+              <a class="button button--ghost" href="https://github.com/EmyoTyyy/tromp_diagrams" rel="noopener">
+                Source
+              </a>
+            </div>
+          </div>
+
+          <div class="feature__grid">
+            <article class="tile tile--wide" data-reveal style="--i: 0">
+              <h3>Visualizer</h3>
+              <p>
+                The main tool. Several &#946;-reduction strategies side by side in multiple panes,
+                your own definitions, shareable URLs, and export to PNG or WebM so a reduction can
+                leave the page as a video.
+              </p>
+            </article>
+            <article class="tile" data-reveal style="--i: 1">
+              <h3>Play</h3>
+              <p>You get the diagram. You guess the expression. Hints, scoring, a daily puzzle.</p>
+            </article>
+            <article class="tile" data-reveal style="--i: 2">
+              <h3>Tree</h3>
+              <p>
+                Several strategies advanced in parallel, so you can see where they branch and where
+                they meet again.
+              </p>
+            </article>
+            <article class="tile tile--wide" data-reveal style="--i: 3">
+              <h3>Encodings, combinators, halting, history</h3>
+              <p>
+                Reference pages that carry their weight: an encoding lab for naturals, booleans,
+                pairs and both Church and Scott lists, a combinator zoo with diagrams, a
+                step-by-step walk through the halting problem, and where all of it came from.
+              </p>
+            </article>
+            <article class="tile" data-reveal style="--i: 4">
+              <h3>Learn</h3>
+              <p>
+                Guided lessons from variables and abstraction up through booleans, pairs, numerals
+                and lists.
+              </p>
+            </article>
+            <article class="tile tile--tinted" data-reveal style="--i: 5">
+              <h3>God mode</h3>
+              <p>
+                A headless reducer that skips the drawing entirely and just runs, for terms with no
+                patience for animation.
+              </p>
+            </article>
+            <article class="tile tile--tinted" data-reveal style="--i: 6">
+              <h3>Achievements</h3>
+              <p>
+                An unlockable badge grid, including a gold tier for things that are genuinely hard
+                to do.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────────────────────────── the quote ── -->
+      <section class="quote" data-reveal>
+        <div class="wrap">
+          <blockquote>
+            <p>Let me ask my best friend Claude.</p>
+          </blockquote>
+          <div class="quote__body">
+            <p>
+              I say this a lot. Often enough that it has become a running joke, and honestly it is
+              not much of a joke, because it is what I actually do.
+            </p>
+            <p>
+              Most of what is on this page was built in conversation. That is not a shortcut, or at
+              least not the kind people mean. The parser still has to parse. The reducer still has
+              to be correct on capture-avoiding substitution or the diagrams quietly lie. Nobody
+              else is around at two in the morning when something breaks, so I still have to
+              understand every line well enough to fix it.
+            </p>
+            <p>
+              What changed is how quickly a question turns into a thing you can click on. That has
+              turned out to matter more than I expected.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── projects ── -->
+      <section class="section" id="projects">
+        <div class="wrap">
+          <div class="section__head" data-reveal>
+            <h2>Everything else.</h2>
+            <p>
+              Some of it is serious, some of it exists because I was bored on a Tuesday. All of it
+              is on GitHub.
+            </p>
+          </div>
+
+          <div class="projects">
+            <article class="project" data-reveal style="--i: 0">
+              <header>
+                <h3>Sheaf</h3>
+                <span class="tag">Electron &middot; TypeScript</span>
+              </header>
+              <p>
+                A local-first LaTeX editor. Your projects stay as ordinary files on your disk and
+                compile with the TeX distribution already on your machine. Errors land on the line
+                you actually wrote, even from a file three includes deep.
+              </p>
+              <p class="project__links">
+                <a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Site</a>
+                <a href="https://github.com/EmyoTyyy/sheaf" rel="noopener">Source</a>
+                <a href="https://github.com/EmyoTyyy/sheaf/releases/latest" rel="noopener">Download</a>
+              </p>
+            </article>
+
+            <article class="project" data-reveal style="--i: 1">
+              <header>
+                <h3>SeQuenceLab</h3>
+                <span class="tag">JavaScript &middot; SQL</span>
+              </header>
+              <p>
+                A small lab for exploring databases with SQL, in the browser. There is a local
+                version and a version rebuilt so it can be hosted straight from GitHub with no
+                server behind it.
+              </p>
+              <p class="project__links">
+                <a href="https://emyotyyy.github.io/sequencelab-js/" rel="noopener">Site</a>
+                <a href="https://github.com/EmyoTyyy/sequencelab-js" rel="noopener">Source</a>
+              </p>
+            </article>
+
+            <article class="project" data-reveal style="--i: 2">
+              <header>
+                <h3>emyot.fun</h3>
+                <span class="tag">JavaScript</span>
+              </header>
+              <p>
+                Every game I made with Claude when I was bored, collected in one place. No install,
+                no account, just a page and a keyboard.
+              </p>
+              <p class="project__links">
+                <a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">Play</a>
+                <a href="https://github.com/EmyoTyyy/emyot.fun" rel="noopener">Source</a>
+              </p>
+            </article>
+
+            <article class="project" data-reveal style="--i: 3">
+              <header>
+                <h3>Detour</h3>
+                <span class="tag">JavaScript</span>
+              </header>
+              <p>
+                My own take on the online game <em>Wrong Way</em>, rebuilt from scratch with the
+                changes I wanted it to have.
+              </p>
+              <p class="project__links">
+                <a href="https://emyotyyy.github.io/detour/" rel="noopener">Play</a>
+                <a href="https://github.com/EmyoTyyy/detour" rel="noopener">Source</a>
+              </p>
+            </article>
+
+            <article class="project project--archive project--wide" data-reveal style="--i: 4">
+              <header>
+                <h3>HTML Crafting Table</h3>
+                <span class="tag">Python &middot; Flask &middot; SQL &middot; Jinja2</span>
+              </header>
+              <p>
+                Where this all started. A crafting table built in Terminale with Flask, a SQL
+                database and Jinja2 templates: drop items into a grid, ask the database what they
+                make. First time a schema, a route and a template ever had to agree with each other
+                on my machine.
+              </p>
+              <p class="project__note">Private repository, so there is nothing to link. It counts anyway.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────── timeline ── -->
+      <section class="section timeline" id="timeline">
+        <div class="wrap">
+          <div class="section__head" data-reveal>
+            <h2>Roughly in order.</h2>
+            <p>Nine months, from a school project to a desktop application.</p>
+          </div>
+
+          <ol class="timeline__list">
+            <li data-reveal style="--i: 0">
+              <span class="timeline__when mono">Dec 2025</span>
+              <span class="timeline__what"><strong>HTML Crafting Table.</strong> Flask, SQL, Jinja2. A school project that got out of hand.</span>
+            </li>
+            <li data-reveal style="--i: 1">
+              <span class="timeline__when mono">May 2026</span>
+              <span class="timeline__what"><strong>Tromp Diagrams.</strong> Lambda calculus, drawn. The one I keep coming back to.</span>
+            </li>
+            <li data-reveal style="--i: 2">
+              <span class="timeline__when mono">Jun 2026</span>
+              <span class="timeline__what"><strong>SeQuenceLab</strong>, then a browser-only rebuild of it a day later. <strong>Detour</strong> the same month.</span>
+            </li>
+            <li data-reveal style="--i: 3">
+              <span class="timeline__when mono">Jul 2026</span>
+              <span class="timeline__what"><strong>emyot.fun.</strong> The games stopped being scattered and got a home.</span>
+            </li>
+            <li data-reveal style="--i: 4">
+              <span class="timeline__when mono">Aug 2026</span>
+              <span class="timeline__what"><strong>Sheaf.</strong> First one that ships as a real installable application, on Linux and Windows.</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__mark" aria-hidden="true"><svg viewBox="0 0 232 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="200" y2="24" stroke-linecap="square"/><line x1="32" y1="88" x2="128" y2="88" stroke-linecap="square"/><line x1="24" y1="40" x2="104" y2="40" stroke-linecap="square"/><line x1="32" y1="72" x2="64" y2="72" stroke-linecap="square"/><line x1="64" y1="56" x2="96" y2="56" stroke-linecap="square"/><line x1="120" y1="40" x2="200" y2="40" stroke-linecap="square"/><line x1="128" y1="72" x2="160" y2="72" stroke-linecap="square"/><line x1="160" y1="56" x2="192" y2="56" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="40" x2="64" y2="72" stroke-linecap="butt"/><line x1="96" y1="40" x2="96" y2="56" stroke-linecap="butt"/><line x1="128" y1="24" x2="128" y2="88" stroke-linecap="butt"/><line x1="160" y1="40" x2="160" y2="72" stroke-linecap="butt"/><line x1="192" y1="40" x2="192" y2="56" stroke-linecap="butt"/></svg></div>
+        <div class="footer__text">
+          <p><strong>Emyot</strong>. Still mostly at night.</p>
+          <nav>
+            <a href="https://github.com/EmyoTyyy" rel="noopener">GitHub</a>
+            <a href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">Tromp Diagrams</a>
+            <a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Sheaf</a>
+            <a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">Games</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script src="reduction.js"></script>
+    <script src="site.js"></script>
+  </body>
+</html>
