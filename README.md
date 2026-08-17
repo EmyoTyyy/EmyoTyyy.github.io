@@ -6,17 +6,6 @@ A user site: GitHub reserves the repository name `<username>.github.io` for the
 root of the domain, so this page sits at `/` while every project keeps its own
 path (`/sheaf`, `/tromp_diagrams`, and so on).
 
-## What is in here
-
-| File | |
-|---|---|
-| `index.html` | The page. Hand written, no build step. |
-| `styles.css` | Tokens, light and dark, same typefaces and blue as the Sheaf site. |
-| `site.js` | The hero reduction, the reveals, the sticky header. |
-| `reduction.js` | **Generated.** Line geometry for the reduction shown in the hero. |
-| `fonts/` | Fraunces, Instrument Sans and JetBrains Mono, self hosted. |
-| `.nojekyll` | Serve the files as committed, without a Jekyll build. |
-
 ## The diagrams
 
 Every Tromp diagram on the page, the six in the vocabulary strip and each frame

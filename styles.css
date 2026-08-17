@@ -358,6 +358,7 @@ em {
 /* ────────────────────────────────────────────────────────── stage ── */
 
 .stage {
+  position: relative;
   margin: 0;
   padding: 20px 20px 16px;
   border: 1px solid var(--border);
@@ -409,16 +410,27 @@ em {
   padding: 20px 4px;
 }
 
+/* One line, always. The term shrinks from 69 characters to 27 as it reduces,
+   and letting it rewrap changed the height of the card on every step, which
+   shoved the whole page up and down. It scrolls sideways instead. */
 .stage__term {
   margin-top: 10px;
-  min-height: 3.1em;
   padding: 9px 11px;
   border-radius: var(--radius-control);
   background: var(--surface-sunken);
   color: var(--text-body);
   font-size: 0.74rem;
   line-height: 1.55;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow-x: auto;
+  /* The scrollbar itself is hidden: it appears only for the long early terms,
+     and a bar that comes and goes changes the card height, which is the same
+     page-shoving problem by another route. Wheel and touch still scroll. */
+  scrollbar-width: none;
+}
+
+.stage__term::-webkit-scrollbar {
+  display: none;
 }
 
 .stage__controls {
@@ -872,4 +884,872 @@ em {
   .footer .wrap {
     gap: 20px;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Pieces added for the project references.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────── the extruded lambda ── */
+
+/* Eighteen copies of the glyph stacked along Z. Cheap, no library, and the
+   depth is real: rotate it and the side of the letter is genuinely there. */
+.lam3d {
+  position: absolute;
+  top: -44px;
+  /* Never more than the page gutter, or it hangs past the viewport edge at
+     the widths where the wrap has not yet reached its maximum. */
+  right: -14px;
+  width: 126px;
+  height: 126px;
+  perspective: 620px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.lam3d__spin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: lam-spin 16s linear infinite;
+}
+
+.lam3d span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 1;
+  color: color-mix(in srgb, var(--accent) 62%, #0b1420);
+  transform: translateZ(calc(var(--d) * -1.5px));
+}
+
+/* Only the face the light hits is the bright one. */
+.lam3d span:first-child {
+  color: var(--accent);
+}
+
+@keyframes lam-spin {
+  from {
+    transform: rotateX(-16deg) rotateY(24deg);
+  }
+  50% {
+    transform: rotateX(-16deg) rotateY(-24deg);
+  }
+  to {
+    transform: rotateX(-16deg) rotateY(24deg);
+  }
+}
+
+/* ────────────────────────────────────────────── the crafting table ── */
+
+.bench-section {
+  border-top: 1px solid var(--border);
+  background: var(--surface-sunken);
+}
+
+.bench__layout {
+  display: grid;
+  gap: clamp(28px, 5vw, 56px);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+  align-items: center;
+  margin-bottom: clamp(32px, 5vw, 52px);
+}
+
+.bench__intro p {
+  margin-top: 14px;
+}
+
+.bench__meta {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.bench__table {
+  display: grid;
+  place-items: center;
+  min-height: 230px;
+  perspective: 900px;
+}
+
+.cube {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  animation: cube-spin 24s linear infinite;
+}
+
+@keyframes cube-spin {
+  from {
+    transform: rotateX(-24deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-24deg) rotateY(360deg);
+  }
+}
+
+.cube__face {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  /* Planks, drawn rather than downloaded: nothing here is anyone's asset. */
+  background-color: #9a6b3f;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.22) 0 2px,
+      rgba(255, 255, 255, 0.05) 2px 4px,
+      transparent 4px 18px
+    ),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 24px);
+}
+
+.cube__face--front {
+  transform: translateZ(75px);
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(75px);
+  filter: brightness(0.72);
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(75px);
+  filter: brightness(0.82);
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(75px);
+  filter: brightness(0.82);
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(75px);
+  filter: brightness(0.55);
+}
+
+/* The top is the part that matters: a three by three grid, sunk in. */
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(75px);
+  background-color: #6f4a29;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.55) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.55) 2px, transparent 2px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 12px);
+  background-size:
+    50px 50px,
+    50px 50px,
+    auto;
+}
+
+/* ─────────────────────────────────────────────────── the workbench ── */
+
+.bench {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  padding: 24px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.bench__palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bench__item {
+  min-width: 54px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface-sunken);
+  color: var(--text-body);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+
+.bench__item:hover {
+  border-color: var(--accent);
+}
+
+.bench__item[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.bench__craft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bench__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(3, 56px);
+  gap: 5px;
+  padding: 7px;
+  border-radius: var(--radius-control);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+}
+
+.bench__cell {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--page);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.bench__cell:hover {
+  border-color: var(--accent);
+}
+
+.bench__cell[data-item=''] {
+  color: transparent;
+}
+
+.bench__arrow {
+  width: 40px;
+  color: var(--text-dim);
+}
+
+.bench__arrow svg {
+  display: block;
+  width: 100%;
+}
+
+.bench__out {
+  display: grid;
+  place-items: center;
+  width: 210px;
+  min-height: 92px;
+  padding: 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface-sunken);
+  text-align: center;
+}
+
+.bench__out--full {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.bench__result {
+  display: grid;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.bench__result strong {
+  font-family: var(--display);
+  font-size: 1.02rem;
+  color: var(--text);
+}
+
+.bench__result span {
+  font-size: 0.83rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+}
+
+.bench__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button--small {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 860px) {
+  .bench__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────── games ── */
+
+.games {
+  border-top: 1px solid var(--border);
+}
+
+.games__grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.game h3 {
+  margin-bottom: 8px;
+}
+
+.game p {
+  font-size: 0.93rem;
+}
+
+.game--wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 760px) {
+  .game--wide {
+    grid-column: span 1;
+  }
+}
+
+/* Each game gets a mark drawn from its own idea, not a screenshot. */
+.game__art {
+  height: 78px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-control);
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+/* Coreloom: chips on a wire. */
+.game__art--coreloom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+}
+
+.game__art--coreloom::before {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  height: 2px;
+  background: var(--border-strong);
+}
+
+.game__art--coreloom span {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  margin: 0 9px;
+  border: 2px solid var(--accent);
+  border-radius: 3px;
+  background: var(--surface);
+}
+
+.game__art--coreloom span:nth-child(2n) {
+  transform: translateY(-13px);
+}
+
+/* The Shifting Mansion: rooms that will not stay put. */
+.game__art--mansion {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  padding: 12px 22px;
+}
+
+.game__art--mansion span {
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  background: var(--surface);
+}
+
+.game__art--mansion span:nth-child(2),
+.game__art--mansion span:nth-child(4) {
+  background: var(--accent);
+  opacity: 0.28;
+}
+
+.game__art--mansion span:nth-child(5) {
+  background: var(--text-dim);
+  opacity: 0.16;
+}
+
+/* The Drowned Lexicon: signs nobody has read in a long time. */
+.game__art--lexicon {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  padding: 12px 18px;
+  font-size: 17px;
+  color: var(--text-dim);
+}
+
+.game__art--lexicon span:nth-child(3),
+.game__art--lexicon span:nth-child(6) {
+  color: var(--accent);
+}
+
+/* Decay Heat: dials and bar gauges on a panel. */
+.game__art--reactor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.game__art--reactor .dial {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--border-strong);
+  border-radius: 50%;
+}
+
+.game__art--reactor .dial i {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 2px;
+  height: 11px;
+  background: var(--accent);
+  transform-origin: bottom center;
+  transform: rotate(38deg);
+}
+
+.game__art--reactor .dial:nth-child(2) i {
+  transform: rotate(-52deg);
+  background: #d1603d;
+}
+
+.game__art--reactor .bar {
+  width: 7px;
+  height: 34px;
+  border-radius: 2px;
+  background: linear-gradient(to top, var(--accent) 55%, var(--border-strong) 55%);
+}
+
+.game__art--reactor .bar:nth-child(4) {
+  background: linear-gradient(to top, var(--accent) 78%, var(--border-strong) 78%);
+}
+
+.game__art--reactor .bar:nth-child(5) {
+  background: linear-gradient(to top, #d1603d 90%, var(--border-strong) 90%);
+}
+
+/* Detour: the board itself, as geometry rather than a gradient, so the
+   outer borders exist and the walls sit in the grooves between cells. */
+.game__art--detour {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+.board {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-height: 132px;
+}
+
+.board__grid {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 0.8;
+}
+
+.board__wall {
+  fill: var(--accent);
+}
+
+.board__pawn {
+  fill: var(--accent);
+}
+
+.board__pawn--b {
+  fill: var(--text-dim);
+}
+
+.games__cta {
+  margin-top: 22px;
+}
+
+/* ─────────────────────────────────────────────── the query index ── */
+
+.index {
+  border-top: 1px solid var(--border);
+  background: var(--surface-sunken);
+}
+
+.query {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.query__sql {
+  margin: 0;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--page);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-body);
+  overflow-x: auto;
+}
+
+.query__sql .kw {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.query__scroll {
+  overflow-x: auto;
+}
+
+.query__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.query__table th,
+.query__table td {
+  padding: 11px 18px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+
+.query__table th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--surface-sunken);
+  white-space: nowrap;
+}
+
+.query__table td:first-child {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.query__table td.mono {
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.query__table tbody tr:hover {
+  background: var(--accent-wash);
+}
+
+.query__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.query__note {
+  margin: 0;
+  padding: 11px 18px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-sunken);
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+
+/* ─────────────────────────────────────────────────── nav icon link ── */
+
+.nav__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-control);
+  color: var(--text-dim);
+}
+
+.nav__icon:hover {
+  color: var(--text);
+  background: var(--shade);
+}
+
+.nav__icon svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+/* ──────────────────────────────────────────────────── calm motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .lam3d__spin,
+  .cube {
+    animation: none;
+  }
+}
+
+/* ───────────────────────────────── refinements to the two set pieces ── */
+
+/* Detour takes the whole last row rather than leaving two dead columns, and
+   turns side-on so the board is not stretched across it. */
+.game--wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  column-gap: 24px;
+  align-items: start;
+}
+
+.game--wide .game__art {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  height: 100%;
+  min-height: 150px;
+  margin-bottom: 0;
+}
+
+.game--wide h3,
+.game--wide p {
+  grid-column: 2;
+}
+
+.game--wide h3 {
+  grid-row: 1;
+}
+
+@media (max-width: 760px) {
+  .game--wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .game--wide .game__art {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 108px;
+    margin-bottom: 16px;
+  }
+  .game--wide h3,
+  .game--wide p {
+    grid-column: 1;
+  }
+}
+
+/* The rim that makes a workbench look like a workbench rather than a crate. */
+.cube__face--front::after,
+.cube__face--back::after,
+.cube__face--left::after,
+.cube__face--right::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 27%;
+  background-color: #b8834f;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 11px),
+    linear-gradient(rgba(255, 255, 255, 0.12), transparent 60%);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.42);
+}
+
+/* Two dark shapes on the front, the way a bench has something lying on it. */
+.cube__face--front::before {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 45%;
+  height: 30%;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-size:
+    46% 34%,
+    34% 22%;
+  background-position:
+    left top,
+    right bottom;
+  background-repeat: no-repeat;
+}
+
+/* A deeper grid on top: this is the part that is actually the crafting table. */
+.cube__face--top {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.62) 3px, transparent 3px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.62) 3px, transparent 3px),
+    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 10px);
+  background-size:
+    49px 49px,
+    49px 49px,
+    49px 49px,
+    auto;
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.55);
+}
+
+/* Something for it to sit on. */
+.bench__table {
+  position: relative;
+}
+
+
+/* Once the hero stacks, the stage runs the full width of the page and the
+   lambda hanging off its corner reaches past the viewport. It tucks in. */
+@media (max-width: 900px) {
+  .lam3d {
+    top: -34px;
+    right: -6px;
+    width: 92px;
+    height: 92px;
+  }
+
+  .lam3d span {
+    font-size: 58px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   The workbench. The textures are the real 16x16 files in assets/, so
+   image-rendering is doing as much work here as the colours are: scaled
+   up smoothly they turn to mush, and the chunky pixels are the point.
+   Front and side alternate around the four upright faces.
+   ══════════════════════════════════════════════════════════════════════ */
+
+.cube__face {
+  border: 0;
+  background-color: transparent;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* The rim and the tools come from the textures now, not from CSS. */
+.cube__face--front::before,
+.cube__face--front::after,
+.cube__face--back::after,
+.cube__face--left::after,
+.cube__face--right::after {
+  content: none;
+}
+
+.cube__face--front,
+.cube__face--back {
+  background-image: url('assets/crafting_table_front.png');
+}
+
+.cube__face--left,
+.cube__face--right {
+  background-image: url('assets/crafting_table_side.png');
+}
+
+.cube__face--top {
+  background-image: url('assets/crafting_table_top.png');
+  box-shadow: none;
+}
+
+/* Never visible at this camera angle, but it should not be a hole. */
+.cube__face--bottom {
+  background-image: url('assets/crafting_table_side.png');
+}
+
+/* ─────────────────────────────────────────────────────── the wordmark ── */
+
+/* The signature is a mask rather than a picture, so it is painted in
+   currentColor and therefore lands on exactly the text colour of whichever
+   theme is showing. One file, no light and dark copies to keep in step. */
+.nav__wordmark {
+  display: block;
+  /* Big for a nav item, because the long swashes take most of the box and
+     the letters themselves are only the middle of it. */
+  height: 44px;
+  /* 254 x 132 in assets/emyot-mark.png, so 1.9242 to 1. */
+  width: 84.7px;
+  background-color: currentColor;
+  -webkit-mask: url('assets/emyot-mark.png') no-repeat center / contain;
+  mask: url('assets/emyot-mark.png') no-repeat center / contain;
+}
+
+/* Baseline alignment is meaningless once one of the two is a shape. */
+.nav__brand {
+  align-items: center;
+}
+
+/* Without masking the span would paint as a solid block, so it becomes the
+   word again instead. assets/emyot-light.png is the same shape in white ink
+   for anywhere a mask is not an option at all. */
+@supports not ((mask-image: url('assets/emyot-mark.png')) or
+               (-webkit-mask-image: url('assets/emyot-mark.png'))) {
+  .nav__wordmark {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+  }
+
+  .nav__wordmark::after {
+    content: 'EmyoT';
+  }
+}
+
+/* ────────────────────────────────────────────── the three rules ── */
+
+.rules {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: rule;
+}
+
+.rules li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  color: var(--text-body);
+}
+
+/* Each rule is illustrated by the very line it describes. */
+.rules__mark {
+  display: grid;
+  place-items: center;
+  height: 26px;
+  color: var(--ink);
+}
+
+.rules__mark svg {
+  display: block;
+  width: 26px;
+  height: 22px;
+}
+
+.rules__close {
+  margin-top: 16px;
 }

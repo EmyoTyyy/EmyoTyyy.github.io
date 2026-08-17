@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Emyot</title>
+    <title>EmyoT</title>
     <meta
       name="description"
-      content="I build small tools that make abstract things visible: a lambda calculus visualiser, a SQL playground, a LaTeX editor, and a pile of browser games."
+      content="Lambda calculus you can watch reduce, a LaTeX editor, a SQL lab, four browser games and a crafting table. Mostly with no dependencies and no build step."
     />
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14'%3E%CE%BB%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='28' font-family='serif' fill='%237aa2f7'%3E%CE%BB%3C/text%3E%3C/svg%3E" />
 
     <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -29,13 +29,21 @@
       <div class="wrap nav__inner">
         <a class="nav__brand" href="#top">
           <span class="nav__lambda" aria-hidden="true">&#955;</span>
-          <span>Emyot</span>
+          <span class="nav__wordmark" role="img" aria-label="EmyoT"></span>
         </a>
         <nav class="nav__links">
           <a href="#tromp">Lambda</a>
-          <a href="#projects">Projects</a>
-          <a href="#timeline">Timeline</a>
-          <a href="https://github.com/EmyoTyyy" rel="noopener">GitHub</a>
+          <a href="#workbench">Workbench</a>
+          <a href="#games">Games</a>
+          <a href="#index">Everything</a>
+          <a class="nav__icon" href="https://github.com/EmyoTyyy" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+          </a>
         </nav>
       </div>
     </header>
@@ -45,25 +53,26 @@
       <section class="hero" id="top">
         <div class="wrap">
           <div class="hero__text">
-            <p class="eyebrow">EmyoTyyy</p>
             <h1>I build small things that make <span class="hl">big ideas visible</span>.</h1>
             <p class="lede">
               A lambda calculus you can watch reduce. A database you can poke at with SQL. A LaTeX
-              editor that keeps your files on your own disk. Everything here runs in a browser tab
-              or on your own machine, with nothing to sign up for.
+              editor that keeps your files on your own disk. Online games, a recipe app and a crafting
+              table. Almost none of it has a build step, and almost none of it needs a server.
             </p>
             <div class="hero__actions">
               <a class="button button--primary" href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">
                 Open Tromp Diagrams
               </a>
-              <a class="button button--ghost" href="https://github.com/EmyoTyyy" rel="noopener">
-                GitHub
-              </a>
+              <a class="button button--ghost" href="#index">See everything</a>
             </div>
           </div>
 
           <!-- The centrepiece: a real reduction, drawn by the real layout code. -->
           <figure class="stage" id="stage">
+            <div class="lam3d" aria-hidden="true">
+              <div class="lam3d__spin"><span style="--d: 0">&#955;</span><span style="--d: 1">&#955;</span><span style="--d: 2">&#955;</span><span style="--d: 3">&#955;</span><span style="--d: 4">&#955;</span><span style="--d: 5">&#955;</span><span style="--d: 6">&#955;</span><span style="--d: 7">&#955;</span><span style="--d: 8">&#955;</span><span style="--d: 9">&#955;</span><span style="--d: 10">&#955;</span><span style="--d: 11">&#955;</span><span style="--d: 12">&#955;</span><span style="--d: 13">&#955;</span><span style="--d: 14">&#955;</span><span style="--d: 15">&#955;</span><span style="--d: 16">&#955;</span><span style="--d: 17">&#955;</span></div>
+            </div>
+
             <figcaption class="stage__head">
               <span class="stage__label">&#946;-reduction</span>
               <span class="stage__title">plus 2 3</span>
@@ -95,11 +104,15 @@
       <section class="section vocab" id="vocab">
         <div class="wrap">
           <div class="section__head" data-reveal>
-            <h2>Six lines, and you can already read one.</h2>
-            <p>
-              A horizontal bar is a function. A vertical line dropping from it is the variable it
-              binds. A bar underneath joins a function to its argument. That is the entire notation,
-              and it is enough to draw every program that has ever been written.
+            <h2>Three lines, and you can already read one.</h2>
+            <ol class="rules">
+              <li><span class="rules__mark"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M3 8H23"/></svg></span><span>A horizontal bar is a function.</span></li>
+              <li><span class="rules__mark"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M3 5H23 M13 5V19"/></svg></span><span>A vertical line dropping from it is the variable it binds.</span></li>
+              <li><span class="rules__mark"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M7 3V15 M19 3V15 M7 15H19"/></svg></span><span>A bar underneath joins a function to its argument.</span></li>
+            </ol>
+            <p class="rules__close">
+              That is the entire notation, and it is enough to draw every program that has ever
+              been written.
             </p>
           </div>
 
@@ -112,14 +125,14 @@
             </li>
             <li class="vocab__item" data-reveal style="--i: 1">
               <div class="vocab__art"><svg viewBox="0 0 72 80" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="40" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="40" y2="40" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="56" stroke-linecap="butt"/></svg></div>
-              <h3>Constant</h3>
-              <p class="mono">&#955;x y. x</p>
+              <h3>True</h3>
+              <p class="mono">&#955;x.&#955;y. x</p>
               <p class="vocab__note">Takes two, forgets the second. Also <em>true</em>.</p>
             </li>
             <li class="vocab__item" data-reveal style="--i: 2">
               <div class="vocab__art"><svg viewBox="0 0 168 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="136" y2="40" stroke-linecap="square"/><line x1="24" y1="56" x2="136" y2="56" stroke-linecap="square"/><line x1="32" y1="88" x2="96" y2="88" stroke-linecap="square"/><line x1="32" y1="72" x2="64" y2="72" stroke-linecap="square"/><line x1="96" y1="72" x2="128" y2="72" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="56" x2="64" y2="72" stroke-linecap="butt"/><line x1="96" y1="40" x2="96" y2="88" stroke-linecap="butt"/><line x1="128" y1="56" x2="128" y2="72" stroke-linecap="butt"/></svg></div>
               <h3>Substitution</h3>
-              <p class="mono">&#955;x y z. x z (y z)</p>
+              <p class="mono">&#955;x.&#955;y.&#955;z. x z (y z)</p>
               <p class="vocab__note">With K, enough to express anything computable.</p>
             </li>
             <li class="vocab__item" data-reveal style="--i: 3">
@@ -137,8 +150,8 @@
             <li class="vocab__item" data-reveal style="--i: 5">
               <div class="vocab__art"><svg viewBox="0 0 168 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="136" y2="40" stroke-linecap="square"/><line x1="32" y1="88" x2="64" y2="88" stroke-linecap="square"/><line x1="64" y1="72" x2="96" y2="72" stroke-linecap="square"/><line x1="96" y1="56" x2="128" y2="56" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="24" x2="64" y2="88" stroke-linecap="butt"/><line x1="96" y1="24" x2="96" y2="72" stroke-linecap="butt"/><line x1="128" y1="40" x2="128" y2="56" stroke-linecap="butt"/></svg></div>
               <h3>Three</h3>
-              <p class="mono">&#955;f x. f (f (f x))</p>
-              <p class="vocab__note">A number, written as "do it three times".</p>
+              <p class="mono">&#955;f.&#955;x. f (f (f x))</p>
+              <p class="vocab__note">A number, written as "do something three times".</p>
             </li>
           </ul>
         </div>
@@ -245,94 +258,271 @@
         </div>
       </section>
 
-      <!-- ────────────────────────────────────────────── projects ── -->
-      <section class="section" id="projects">
+      <!-- ────────────────────────────────────────── the workbench ── -->
+      <section class="section bench-section" id="workbench">
+        <div class="wrap">
+          <div class="bench__layout">
+            <div class="bench__intro" data-reveal>
+              <p class="eyebrow">Where it started</p>
+              <h2>A crafting table, in Terminale.</h2>
+              <p>
+                The first thing I built that had a schema, a route and a template which all had to
+                agree with each other: a crafting table in Flask, backed by SQL, rendered through
+                Jinja2. Drop items into a grid, ask the database what they make.
+              </p>
+              <p>
+                So here is one made out of the things I have used since. Put materials in the grid
+                and it hands you back a project.
+              </p>
+              <p class="bench__meta">
+                The repository is private, so there is nothing to link. It still counts.
+              </p>
+            </div>
+
+            <div class="bench__table" aria-hidden="true">
+              <div class="cube">
+                <div class="cube__face cube__face--top"></div>
+                <div class="cube__face cube__face--bottom"></div>
+                <div class="cube__face cube__face--front"></div>
+                <div class="cube__face cube__face--back"></div>
+                <div class="cube__face cube__face--left"></div>
+                <div class="cube__face cube__face--right"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bench" id="bench-ui" data-reveal>
+            <div class="bench__palette" role="group" aria-label="Materials">
+              <button class="bench__item" type="button" data-item="lam" aria-pressed="true">&#955;</button>
+              <button class="bench__item" type="button" data-item="tex" aria-pressed="false">TeX</button>
+              <button class="bench__item" type="button" data-item="sql" aria-pressed="false">SQL</button>
+              <button class="bench__item" type="button" data-item="js" aria-pressed="false">JS</button>
+              <button class="bench__item" type="button" data-item="py" aria-pressed="false">Py</button>
+            </div>
+
+            <div class="bench__craft">
+              <div class="bench__grid" id="bench" role="group" aria-label="Crafting grid">
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+                <button class="bench__cell" type="button"></button>
+              </div>
+
+              <div class="bench__arrow" aria-hidden="true">
+                <svg viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M2 8h34 M30 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+              <div class="bench__out" id="bench-out" aria-live="polite" aria-label="Nothing yet"></div>
+            </div>
+
+            <div class="bench__actions">
+              <button class="button button--ghost button--small" type="button" id="bench-hint">
+                Show me one
+              </button>
+              <button class="button button--ghost button--small" type="button" id="bench-clear">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ────────────────────────────────────────────────── games ── -->
+      <section class="section games" id="games">
         <div class="wrap">
           <div class="section__head" data-reveal>
-            <h2>Everything else.</h2>
+            <p class="eyebrow">emyot.fun</p>
+            <h2>Online games, no install, no account.</h2>
             <p>
-              Some of it is serious, some of it exists because I was bored on a Tuesday. All of it
-              is on GitHub.
+              Saves never leave your machine. Four of them live on the shelf, the fifth keeps its
+              own repository.
             </p>
           </div>
 
-          <div class="projects">
-            <article class="project" data-reveal style="--i: 0">
-              <header>
-                <h3>Sheaf</h3>
-                <span class="tag">Electron &middot; TypeScript</span>
-              </header>
+          <div class="games__grid">
+            <article class="game" data-reveal style="--i: 0">
+              <div class="game__art game__art--coreloom" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <h3>Coreloom</h3>
               <p>
-                A local-first LaTeX editor. Your projects stay as ordinary files on your disk and
-                compile with the TeX distribution already on your machine. Errors land on the line
-                you actually wrote, even from a file three includes deep.
-              </p>
-              <p class="project__links">
-                <a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Site</a>
-                <a href="https://github.com/EmyoTyyy/sheaf" rel="noopener">Source</a>
-                <a href="https://github.com/EmyoTyyy/sheaf/releases/latest" rel="noopener">Download</a>
+                A programming puzzle. Place chips, wire their ports, and write assembly that turns
+                one stream of numbers into another. Twenty-three assignments.
               </p>
             </article>
 
-            <article class="project" data-reveal style="--i: 1">
-              <header>
-                <h3>SeQuenceLab</h3>
-                <span class="tag">JavaScript &middot; SQL</span>
-              </header>
+            <article class="game" data-reveal style="--i: 1">
+              <div class="game__art game__art--mansion" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <h3>The Shifting Mansion</h3>
               <p>
-                A small lab for exploring databases with SQL, in the browser. There is a local
-                version and a version rebuilt so it can be hosted straight from GitHub with no
-                server behind it.
-              </p>
-              <p class="project__links">
-                <a href="https://emyotyyy.github.io/sequencelab-js/" rel="noopener">Site</a>
-                <a href="https://github.com/EmyoTyyy/sequencelab-js" rel="noopener">Source</a>
+                Top-down horror exploration. A cursed house that rearranges itself every night,
+                across five nights. It started life as a Unity project on this machine.
               </p>
             </article>
 
-            <article class="project" data-reveal style="--i: 2">
-              <header>
-                <h3>emyot.fun</h3>
-                <span class="tag">JavaScript</span>
-              </header>
+            <article class="game" data-reveal style="--i: 2">
+              <div class="game__art game__art--lexicon" aria-hidden="true">
+                <span>&#5787;</span><span>&#5809;</span><span>&#5792;</span><span>&#5800;</span>
+                <span>&#5794;</span><span>&#5811;</span><span>&#5788;</span><span>&#5805;</span>
+              </div>
+              <h3>The Drowned Lexicon</h3>
               <p>
-                Every game I made with Claude when I was bored, collected in one place. No install,
-                no account, just a page and a keyboard.
-              </p>
-              <p class="project__links">
-                <a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">Play</a>
-                <a href="https://github.com/EmyoTyyy/emyot.fun" rel="noopener">Source</a>
+                Decipherment. Ninety signs of a dead script and no dictionary: work the language out
+                from the clay tablets alone. Every seed generates a different language.
               </p>
             </article>
 
-            <article class="project" data-reveal style="--i: 3">
-              <header>
-                <h3>Detour</h3>
-                <span class="tag">JavaScript</span>
-              </header>
+            <article class="game" data-reveal style="--i: 3">
+              <div class="game__art game__art--reactor" aria-hidden="true">
+                <span class="dial"><i></i></span><span class="dial"><i></i></span>
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+              </div>
+              <h3>Decay Heat</h3>
               <p>
-                My own take on the online game <em>Wrong Way</em>, rebuilt from scratch with the
-                changes I wanted it to have.
+                A reactor control room on the night shift. Analogue panels you have to turn your
+                head to read, thirteen ways a night goes wrong, and a plant simulated honestly
+                enough that the faults cascade on their own.
+              </p>
+            </article>
+
+            <article class="game game--wide" data-reveal style="--i: 4">
+              <div class="game__art game__art--detour"><svg class="board" viewBox="0 0 116 116" aria-hidden="true" focusable="false"><path class="board__grid" d="M4 4V112 M16 4V112 M28 4V112 M40 4V112 M52 4V112 M64 4V112 M76 4V112 M88 4V112 M100 4V112 M112 4V112 M4 4H112 M4 16H112 M4 28H112 M4 40H112 M4 52H112 M4 64H112 M4 76H112 M4 88H112 M4 100H112 M4 112H112"/><rect class="board__wall" x="40" y="38.5" width="24" height="3" rx="1.5"/><rect class="board__wall" x="74.5" y="64" width="3" height="24" rx="1.5"/><circle class="board__pawn" cx="58" cy="10" r="4"/><circle class="board__pawn board__pawn--b" cx="58" cy="106" r="4"/></svg></div>
+              <h3>Detour</h3>
+              <p>
+                A 1v1 tactical race on a 9&#215;9 board. Move one step, or place a wall to lengthen
+                your opponent's route. Walls can slow someone down but never trap them: every
+                placement has to leave both players a path home.
               </p>
               <p class="project__links">
                 <a href="https://emyotyyy.github.io/detour/" rel="noopener">Play</a>
                 <a href="https://github.com/EmyoTyyy/detour" rel="noopener">Source</a>
               </p>
             </article>
+          </div>
 
-            <article class="project project--archive project--wide" data-reveal style="--i: 4">
-              <header>
-                <h3>HTML Crafting Table</h3>
-                <span class="tag">Python &middot; Flask &middot; SQL &middot; Jinja2</span>
-              </header>
-              <p>
-                Where this all started. A crafting table built in Terminale with Flask, a SQL
-                database and Jinja2 templates: drop items into a grid, ask the database what they
-                make. First time a schema, a route and a template ever had to agree with each other
-                on my machine.
-              </p>
-              <p class="project__note">Private repository, so there is nothing to link. It counts anyway.</p>
-            </article>
+          <p class="games__cta" data-reveal>
+            <a class="button button--primary" href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">
+              Open the shelf
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <!-- ──────────────────────────────────────────── the index ── -->
+      <section class="section index" id="index">
+        <div class="wrap">
+          <div class="section__head" data-reveal>
+            <p class="eyebrow">SeQuenceLab</p>
+            <h2>Everything, as a query.</h2>
+            <p>
+              One of these is a small lab for exploring databases with SQL in the browser, so it
+              only seemed fair to let it introduce the rest.
+            </p>
+          </div>
+
+          <div class="query" data-reveal>
+            <pre class="query__sql mono"><code><span class="kw">SELECT</span> name, made_of, where_it_lives
+<span class="kw">FROM</span>   projects
+<span class="kw">ORDER</span> <span class="kw">BY</span> started <span class="kw">DESC</span>;</code></pre>
+
+            <div class="query__scroll">
+              <table class="query__table">
+                <thead>
+                  <tr>
+                    <th>name</th>
+                    <th>made_of</th>
+                    <th>where_it_lives</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Sheaf</a></td>
+                    <td class="mono">Electron, TypeScript, React</td>
+                    <td>
+                      A local-first LaTeX editor. Projects stay as ordinary files and compile with
+                      the TeX distribution already on your machine.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">emyot.fun</a></td>
+                    <td class="mono">JavaScript</td>
+                    <td>The games shelf. Five of them, all offline.</td>
+                  </tr>
+                  <tr>
+                    <td>EasyCookAI</td>
+                    <td class="mono">HTML, CSS, JS</td>
+                    <td>
+                      A recipe app where the model is not a chatbot bolted on the side: it finds
+                      recipes on the real web, imports them, rewrites them on request, and rides
+                      along while you cook. Talks to Claude or Gemini with your own key.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>SkillSwap Hub</td>
+                    <td class="mono">Python stdlib, SQLite</td>
+                    <td>
+                      Trade skills, not money. A peer-to-peer learning platform whose entire backend
+                      is <span class="mono">http.server</span> and
+                      <span class="mono">sqlite3</span>. No pip install.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>TODO</td>
+                    <td class="mono">HTML, CSS, JS, Node</td>
+                    <td>
+                      Folder, then file, then task. A tiny zero-dependency server that persists
+                      everything as real files you can read without the app.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://emyotyyy.github.io/detour/" rel="noopener">Detour</a></td>
+                    <td class="mono">JavaScript</td>
+                    <td>Quoridor-style tactical race, fully offline.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="https://emyotyyy.github.io/sequencelab-js/" rel="noopener">SeQuenceLab</a>
+                    </td>
+                    <td class="mono">JavaScript, SQL</td>
+                    <td>
+                      Explore a database with real SQL in a browser tab. Local first, then rebuilt so
+                      it could be hosted with no server behind it.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">Tromp Diagrams</a>
+                    </td>
+                    <td class="mono">HTML, CSS, JS</td>
+                    <td>Lambda calculus, drawn. The one this whole page is built out of.</td>
+                  </tr>
+                  <tr>
+                    <td>The Mansion</td>
+                    <td class="mono">Unity, C#</td>
+                    <td>
+                      The original: a mansion with bossfights. Later reborn
+                      in a browser as The Shifting Mansion.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>HTML Crafting Table</td>
+                    <td class="mono">Python, Flask, SQL, Jinja2</td>
+                    <td>Where it started. Private repository.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="query__note mono">10 rows &#183; 0 dependencies in most of them</p>
           </div>
         </div>
       </section>
@@ -364,7 +554,7 @@
             </li>
             <li data-reveal style="--i: 4">
               <span class="timeline__when mono">Aug 2026</span>
-              <span class="timeline__what"><strong>Sheaf.</strong> First one that ships as a real installable application, on Linux and Windows.</span>
+              <span class="timeline__what"><strong>Sheaf</strong>, and <strong>EasyCookAI</strong>. First one that ships as a real installable application, on Linux and Windows.</span>
             </li>
           </ol>
         </div>
@@ -375,7 +565,7 @@
       <div class="wrap">
         <div class="footer__mark" aria-hidden="true"><svg viewBox="0 0 232 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="200" y2="24" stroke-linecap="square"/><line x1="32" y1="88" x2="128" y2="88" stroke-linecap="square"/><line x1="24" y1="40" x2="104" y2="40" stroke-linecap="square"/><line x1="32" y1="72" x2="64" y2="72" stroke-linecap="square"/><line x1="64" y1="56" x2="96" y2="56" stroke-linecap="square"/><line x1="120" y1="40" x2="200" y2="40" stroke-linecap="square"/><line x1="128" y1="72" x2="160" y2="72" stroke-linecap="square"/><line x1="160" y1="56" x2="192" y2="56" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="40" x2="64" y2="72" stroke-linecap="butt"/><line x1="96" y1="40" x2="96" y2="56" stroke-linecap="butt"/><line x1="128" y1="24" x2="128" y2="88" stroke-linecap="butt"/><line x1="160" y1="40" x2="160" y2="72" stroke-linecap="butt"/><line x1="192" y1="40" x2="192" y2="56" stroke-linecap="butt"/></svg></div>
         <div class="footer__text">
-          <p><strong>Emyot</strong>. Still mostly at night.</p>
+          <p><strong>EmyoT</strong>. Still mostly at night.</p>
           <nav>
             <a href="https://github.com/EmyoTyyy" rel="noopener">GitHub</a>
             <a href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">Tromp Diagrams</a>
@@ -387,6 +577,7 @@
     </footer>
 
     <script src="reduction.js"></script>
+    <script src="recipes.js"></script>
     <script src="site.js"></script>
   </body>
 </html>
