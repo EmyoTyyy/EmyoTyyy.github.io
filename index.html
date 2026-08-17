@@ -19,6 +19,14 @@
       // Reveals are opt-in from script, so the page is fully readable with no
       // JavaScript at all rather than being a column of invisible sections.
       document.documentElement.classList.add('js-reveal')
+
+      // Before first paint, or the page shows one theme and then swaps.
+      try {
+        var saved = localStorage.getItem('emyot-theme')
+        if (saved && saved !== 'system') {
+          document.documentElement.setAttribute('data-theme', saved)
+        }
+      } catch (e) {}
     </script>
   </head>
 
@@ -28,7 +36,7 @@
     <header class="nav" id="nav">
       <div class="wrap nav__inner">
         <a class="nav__brand" href="#top">
-          <span class="nav__lambda" aria-hidden="true">&#955;</span>
+          <span class="nav__lambda" aria-hidden="true"></span>
           <span class="nav__wordmark" role="img" aria-label="EmyoT"></span>
         </a>
         <nav class="nav__links">
@@ -36,6 +44,37 @@
           <a href="#workbench">Workbench</a>
           <a href="#games">Games</a>
           <a href="#index">Everything</a>
+          <div class="theme" id="theme">
+            <button
+              class="theme__button"
+              id="theme-button"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Colour theme"
+            >
+              <span class="theme__dot" aria-hidden="true"></span>
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="theme__menu" id="theme-menu" role="menu" hidden>
+              <button type="button" role="menuitemradio" data-theme-value="system" aria-checked="true">
+                <span class="theme__swatch theme__swatch--system" aria-hidden="true"></span>System
+              </button>
+              <button type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">
+                <span class="theme__swatch theme__swatch--light" aria-hidden="true"></span>Light
+              </button>
+              <button type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">
+                <span class="theme__swatch theme__swatch--dark" aria-hidden="true"></span>Dark
+              </button>
+              <button type="button" role="menuitemradio" data-theme-value="cream" aria-checked="false">
+                <span class="theme__swatch theme__swatch--cream" aria-hidden="true"></span>Cream
+              </button>
+            </div>
+          </div>
+
           <a class="nav__icon" href="https://github.com/EmyoTyyy" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
               <path
@@ -126,13 +165,13 @@
             <li class="vocab__item" data-reveal style="--i: 1">
               <div class="vocab__art"><svg viewBox="0 0 72 80" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="40" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="40" y2="40" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="56" stroke-linecap="butt"/></svg></div>
               <h3>True</h3>
-              <p class="mono">&#955;x.&#955;y. x</p>
+              <p class="mono">&#955;x. &#955;y. x</p>
               <p class="vocab__note">Takes two, forgets the second. Also <em>true</em>.</p>
             </li>
             <li class="vocab__item" data-reveal style="--i: 2">
               <div class="vocab__art"><svg viewBox="0 0 168 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="136" y2="40" stroke-linecap="square"/><line x1="24" y1="56" x2="136" y2="56" stroke-linecap="square"/><line x1="32" y1="88" x2="96" y2="88" stroke-linecap="square"/><line x1="32" y1="72" x2="64" y2="72" stroke-linecap="square"/><line x1="96" y1="72" x2="128" y2="72" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="56" x2="64" y2="72" stroke-linecap="butt"/><line x1="96" y1="40" x2="96" y2="88" stroke-linecap="butt"/><line x1="128" y1="56" x2="128" y2="72" stroke-linecap="butt"/></svg></div>
               <h3>Substitution</h3>
-              <p class="mono">&#955;x.&#955;y.&#955;z. x z (y z)</p>
+              <p class="mono">&#955;x. &#955;y. &#955;z. x z (y z)</p>
               <p class="vocab__note">With K, enough to express anything computable.</p>
             </li>
             <li class="vocab__item" data-reveal style="--i: 3">
@@ -150,7 +189,7 @@
             <li class="vocab__item" data-reveal style="--i: 5">
               <div class="vocab__art"><svg viewBox="0 0 168 128" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true" focusable="false"><line x1="24" y1="24" x2="136" y2="24" stroke-linecap="square"/><line x1="24" y1="40" x2="136" y2="40" stroke-linecap="square"/><line x1="32" y1="88" x2="64" y2="88" stroke-linecap="square"/><line x1="64" y1="72" x2="96" y2="72" stroke-linecap="square"/><line x1="96" y1="56" x2="128" y2="56" stroke-linecap="square"/><line x1="32" y1="24" x2="32" y2="104" stroke-linecap="butt"/><line x1="64" y1="24" x2="64" y2="88" stroke-linecap="butt"/><line x1="96" y1="24" x2="96" y2="72" stroke-linecap="butt"/><line x1="128" y1="40" x2="128" y2="56" stroke-linecap="butt"/></svg></div>
               <h3>Three</h3>
-              <p class="mono">&#955;f.&#955;x. f (f (f x))</p>
+              <p class="mono">&#955;f. &#955;x. f (f (f x))</p>
               <p class="vocab__note">A number, written as "do something three times".</p>
             </li>
           </ul>
@@ -164,8 +203,8 @@
             <p class="eyebrow">The big one</p>
             <h2>Tromp Diagrams</h2>
             <p class="feature__lede">
-              A whole site for looking at lambda calculus instead of only reading about it. Type an
-              expression, watch it become a picture, then watch the picture reduce. Twelve pages of
+              A whole site for looking at lambda calculus instead of only reading it. Type an
+              expression, watch it become a diagram, then watch the diagram evolve. Twelve pages of
               it, in plain HTML, CSS and JavaScript: no build step, no package manager, no backend,
               and no dependency on anything outside the folder.
             </p>
@@ -190,7 +229,7 @@
             </article>
             <article class="tile" data-reveal style="--i: 1">
               <h3>Play</h3>
-              <p>You get the diagram. You guess the expression. Hints, scoring, a daily puzzle.</p>
+              <p>You get the diagram. You guess the expression.</p>
             </article>
             <article class="tile" data-reveal style="--i: 2">
               <h3>Tree</h3>
@@ -217,15 +256,14 @@
             <article class="tile tile--tinted" data-reveal style="--i: 5">
               <h3>God mode</h3>
               <p>
-                A headless reducer that skips the drawing entirely and just runs, for terms with no
-                patience for animation.
+                A headless reducer that skips the drawing entirely and just runs, for big 
+                expressions that take thousands of steps.
               </p>
             </article>
             <article class="tile tile--tinted" data-reveal style="--i: 6">
               <h3>Achievements</h3>
               <p>
-                An unlockable badge grid, including a gold tier for things that are genuinely hard
-                to do.
+                Because I can, and that's all I need.
               </p>
             </article>
           </div>
@@ -236,23 +274,22 @@
       <section class="quote" data-reveal>
         <div class="wrap">
           <blockquote>
-            <p>Let me ask my best friend Claude.</p>
+            <p>Let me ask my best friend.</p>
           </blockquote>
           <div class="quote__body">
             <p>
-              I say this a lot. Often enough that it has become a running joke, and honestly it is
-              not much of a joke, because it is what I actually do.
+              I say this a lot, and yes the best friend is either ChatGPT or Claude, and while most
+              people don't agree with me, I still believe using AI in your everyday life isn't harmful.
             </p>
             <p>
-              Most of what is on this page was built in conversation. That is not a shortcut, or at
-              least not the kind people mean. The parser still has to parse. The reducer still has
-              to be correct on capture-avoiding substitution or the diagrams quietly lie. Nobody
-              else is around at two in the morning when something breaks, so I still have to
-              understand every line well enough to fix it.
+              In fact, most of what is on this page was built with AI. That is not a shortcut, or at
+              least not the kind people mean. The parser still has to parse. The reducer still has 
+              to reduce. Nobody else is around at two in the morning when something breaks, so I still 
+              have to understand every line well enough to fix it.
             </p>
             <p>
-              What changed is how quickly a question turns into a thing you can click on. That has
-              turned out to matter more than I expected.
+              What changed is how quickly an idea turns into a thing you can click on, and as someone 
+              who has a lot of ideas, what a relief !
             </p>
           </div>
         </div>
@@ -268,14 +305,14 @@
               <p>
                 The first thing I built that had a schema, a route and a template which all had to
                 agree with each other: a crafting table in Flask, backed by SQL, rendered through
-                Jinja2. Drop items into a grid, ask the database what they make.
+                Jinja2.
               </p>
               <p>
                 So here is one made out of the things I have used since. Put materials in the grid
                 and it hands you back a project.
               </p>
               <p class="bench__meta">
-                The repository is private, so there is nothing to link. It still counts.
+                The repository is private, so there is nothing to link.
               </p>
             </div>
 
@@ -339,10 +376,9 @@
         <div class="wrap">
           <div class="section__head" data-reveal>
             <p class="eyebrow">emyot.fun</p>
-            <h2>Online games, no install, no account.</h2>
+            <h2>Online games, no install, no account, no way you finish any of them.</h2>
             <p>
-              Saves never leave your machine. Four of them live on the shelf, the fifth keeps its
-              own repository.
+              For real, they are really hard, pretty much impossible.
             </p>
           </div>
 
@@ -365,7 +401,7 @@
               <h3>The Shifting Mansion</h3>
               <p>
                 Top-down horror exploration. A cursed house that rearranges itself every night,
-                across five nights. It started life as a Unity project on this machine.
+                across five nights. Honestly kinda trash gameplay.
               </p>
             </article>
 
@@ -399,8 +435,7 @@
               <h3>Detour</h3>
               <p>
                 A 1v1 tactical race on a 9&#215;9 board. Move one step, or place a wall to lengthen
-                your opponent's route. Walls can slow someone down but never trap them: every
-                placement has to leave both players a path home.
+                your opponent's route.
               </p>
               <p class="project__links">
                 <a href="https://emyotyyy.github.io/detour/" rel="noopener">Play</a>
@@ -455,15 +490,14 @@
                   <tr>
                     <td><a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">emyot.fun</a></td>
                     <td class="mono">JavaScript</td>
-                    <td>The games shelf. Five of them, all offline.</td>
+                    <td>The games shelf. Only a few games but a lot of hours of gameplay available.</td>
                   </tr>
                   <tr>
                     <td>EasyCookAI</td>
                     <td class="mono">HTML, CSS, JS</td>
                     <td>
-                      A recipe app where the model is not a chatbot bolted on the side: it finds
-                      recipes on the real web, imports them, rewrites them on request, and rides
-                      along while you cook. Talks to Claude or Gemini with your own key.
+                      A recipe app where the model finds recipes on the real web, imports them, rewrites 
+                      them on request, and rides along while you cook.
                     </td>
                   </tr>
                   <tr>
@@ -479,14 +513,14 @@
                     <td>TODO</td>
                     <td class="mono">HTML, CSS, JS, Node</td>
                     <td>
-                      Folder, then file, then task. A tiny zero-dependency server that persists
+                      Yes, I made my own TODO app. A tiny zero-dependency server that persists
                       everything as real files you can read without the app.
                     </td>
                   </tr>
                   <tr>
                     <td><a href="https://emyotyyy.github.io/detour/" rel="noopener">Detour</a></td>
                     <td class="mono">JavaScript</td>
-                    <td>Quoridor-style tactical race, fully offline.</td>
+                    <td>Quoridor-style tactical game.</td>
                   </tr>
                   <tr>
                     <td>
@@ -495,7 +529,7 @@
                     <td class="mono">JavaScript, SQL</td>
                     <td>
                       Explore a database with real SQL in a browser tab. Local first, then rebuilt so
-                      it could be hosted with no server behind it.
+                      it could be hosted with no server behind it. Made primarily for school.
                     </td>
                   </tr>
                   <tr>
@@ -532,12 +566,12 @@
         <div class="wrap">
           <div class="section__head" data-reveal>
             <h2>Roughly in order.</h2>
-            <p>Nine months, from a school project to a desktop application.</p>
+            <p>From a school project to a desktop application.</p>
           </div>
 
           <ol class="timeline__list">
             <li data-reveal style="--i: 0">
-              <span class="timeline__when mono">Dec 2025</span>
+              <span class="timeline__when mono">Jan 2025</span>
               <span class="timeline__what"><strong>HTML Crafting Table.</strong> Flask, SQL, Jinja2. A school project that got out of hand.</span>
             </li>
             <li data-reveal style="--i: 1">
@@ -554,7 +588,7 @@
             </li>
             <li data-reveal style="--i: 4">
               <span class="timeline__when mono">Aug 2026</span>
-              <span class="timeline__what"><strong>Sheaf</strong>, and <strong>EasyCookAI</strong>. First one that ships as a real installable application, on Linux and Windows.</span>
+              <span class="timeline__what"><strong>EasyCookAI</strong>, and <strong>Sheaf</strong>, the first one that ships as a real installable application, on Linux and Windows.</span>
             </li>
           </ol>
         </div>

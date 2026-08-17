@@ -350,6 +350,73 @@
     document.documentElement.classList.remove('js-reveal')
   }
 
+  /* ────────────────────────────────────────────────── theme picker ── */
+
+  var themeButton = document.getElementById('theme-button')
+  var themeMenu = document.getElementById('theme-menu')
+
+  if (themeButton && themeMenu) {
+    var options = [].slice.call(themeMenu.querySelectorAll('[data-theme-value]'))
+
+    function readStored() {
+      try {
+        var saved = localStorage.getItem('emyot-theme')
+        // Same rename as the head script guards against.
+        if (saved === 'claude') saved = 'cream'
+        return saved || 'system'
+      } catch (e) {
+        return 'system'
+      }
+    }
+
+    function applyTheme(value) {
+      // "system" means take the attribute off entirely and let the media
+      // query in the stylesheet have it back.
+      if (value === 'system') document.documentElement.removeAttribute('data-theme')
+      else document.documentElement.setAttribute('data-theme', value)
+
+      options.forEach(function (button) {
+        button.setAttribute('aria-checked', button.dataset.themeValue === value ? 'true' : 'false')
+      })
+
+      try {
+        if (value === 'system') localStorage.removeItem('emyot-theme')
+        else localStorage.setItem('emyot-theme', value)
+      } catch (e) {}
+    }
+
+    function openMenu(open) {
+      themeMenu.hidden = !open
+      themeButton.setAttribute('aria-expanded', open ? 'true' : 'false')
+    }
+
+    themeButton.addEventListener('click', function (event) {
+      event.stopPropagation()
+      openMenu(themeMenu.hidden)
+    })
+
+    options.forEach(function (button) {
+      button.addEventListener('click', function () {
+        applyTheme(button.dataset.themeValue)
+        openMenu(false)
+        themeButton.focus()
+      })
+    })
+
+    document.addEventListener('click', function (event) {
+      if (!themeMenu.hidden && !themeMenu.contains(event.target)) openMenu(false)
+    })
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !themeMenu.hidden) {
+        openMenu(false)
+        themeButton.focus()
+      }
+    })
+
+    applyTheme(readStored())
+  }
+
   /* ───────────────────────────────────────────── header on scroll ── */
 
   var nav = document.getElementById('nav')
