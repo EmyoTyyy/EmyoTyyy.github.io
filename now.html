@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Now — EmyoT</title>
+    <meta
+      name="description"
+      content="What EmyoT is working on at the moment: a LaTeX editor, a werewolf table, and a lambda calculus site that will not leave him alone."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://emyotyyy.github.io/now.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="EmyoT" />
+    <meta property="og:url" content="https://emyotyyy.github.io/now.html" />
+    <meta property="og:title" content="Now — EmyoT" />
+    <meta property="og:description" content="What I am working on at the moment." />
+    <meta property="og:image" content="https://emyotyyy.github.io/assets/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://emyotyyy.github.io/assets/og.png" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='28' font-family='serif' fill='%237aa2f7'%3E%CE%BB%3C/text%3E%3C/svg%3E" />
+
+    <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      try {
+        var saved = localStorage.getItem('emyot-theme')
+        if (saved && saved !== 'system') {
+          document.documentElement.setAttribute('data-theme', saved)
+        }
+      } catch (e) {}
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="nav" id="nav">
+      <div class="wrap nav__inner">
+        <a class="nav__brand" href="index.html">
+          <span class="nav__lambda" aria-hidden="true"></span>
+          <span class="nav__wordmark" role="img" aria-label="EmyoT"></span>
+        </a>
+        <nav class="nav__links">
+          <a href="index.html">Home</a>
+          <a href="index.html#index">Everything</a>
+          <div class="theme" id="theme">
+            <button
+              class="theme__button"
+              id="theme-button"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Colour theme"
+            >
+              <span class="theme__dot" aria-hidden="true"></span>
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="M4 6.5 8 10.5 12 6.5" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="theme__menu" id="theme-menu" role="menu" hidden>
+              <button type="button" role="menuitemradio" data-theme-value="system" aria-checked="true">
+                <span class="theme__swatch theme__swatch--system" aria-hidden="true"></span>System
+              </button>
+              <button type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">
+                <span class="theme__swatch theme__swatch--light" aria-hidden="true"></span>Light
+              </button>
+              <button type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">
+                <span class="theme__swatch theme__swatch--dark" aria-hidden="true"></span>Dark
+              </button>
+              <button type="button" role="menuitemradio" data-theme-value="cream" aria-checked="false">
+                <span class="theme__swatch theme__swatch--cream" aria-hidden="true"></span>Cream
+              </button>
+            </div>
+          </div>
+
+          <a class="nav__icon" href="https://github.com/EmyoTyyy" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section page">
+        <div class="wrap">
+          <div class="page__wrap">
+            <p class="eyebrow">Now</p>
+            <h1>What I'm doing at the moment.</h1>
+            <p class="page__stamp mono">Last updated 19 August 2026</p>
+
+            <p class="lede">
+              This is a <a href="https://nownownow.com/about" rel="noopener">now page</a>: what I
+              would tell you if we ran into each other, rather than everything I have ever done.
+              That is what the rest of the site is for.
+            </p>
+
+            <h2>Building</h2>
+            <ul class="page__list">
+              <li>
+                <strong>Sheaf.</strong> A LaTeX editor that keeps your files on your own disk. It
+                builds for Linux and Windows now, and the part I am still chewing on is everything
+                that happens when the TeX distribution on the machine is not the one I expected.
+              </li>
+              <li>
+                <strong>Loups-Garous.</strong> Thirty-nine roles, painted cards, and a site that can
+                run the night itself so nobody has to give up their evening to be the game master.
+                Not published yet.
+              </li>
+              <li>
+                <strong>This site.</strong> The index is a real SQL console, which I did not need to
+                write, and wrote anyway.
+              </li>
+            </ul>
+
+            <h2>Thinking about</h2>
+            <ul class="page__list">
+              <li>
+                How I should do something out of my vacation.
+              </li>
+              <li>
+                Working but I'm too lazy.
+              </li>
+            </ul>
+
+            <h2>Say hello</h2>
+            <p>
+              <a class="button button--primary" href="mailto:emyotpro@gmail.com">emyotpro@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__text">
+          <p><strong>EmyoT</strong>. Still mostly at night.</p>
+          <nav>
+            <a href="index.html">Home</a>
+            <a href="mailto:emyotpro@gmail.com">Email</a>
+            <a href="https://github.com/EmyoTyyy" rel="noopener">GitHub</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script src="site.js"></script>
+  </body>
+</html>

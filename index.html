@@ -9,6 +9,33 @@
       content="Lambda calculus you can watch reduce, a LaTeX editor, a SQL lab, four browser games and a crafting table. Mostly with no dependencies and no build step."
     />
     <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://emyotyyy.github.io/" />
+    <meta name="author" content="EmyoT" />
+
+    <!-- What the link looks like when it is pasted somewhere. The image is a
+         real 1200x630 file rather than a scaled favicon, because every one of
+         these places crops and compresses whatever it is given. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="EmyoT" />
+    <meta property="og:url" content="https://emyotyyy.github.io/" />
+    <meta property="og:title" content="EmyoT — I build small things that make big ideas visible" />
+    <meta
+      property="og:description"
+      content="Lambda calculus you can watch reduce, a LaTeX editor, a SQL lab, four browser games and a crafting table. Mostly with no dependencies and no build step."
+    />
+    <meta property="og:image" content="https://emyotyyy.github.io/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A lambda term drawn as a Tromp diagram, signed EmyoT." />
+    <meta property="og:locale" content="en" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EmyoT — I build small things that make big ideas visible" />
+    <meta
+      name="twitter:description"
+      content="Lambda calculus you can watch reduce, a LaTeX editor, a SQL lab, four browser games and a crafting table."
+    />
+    <meta name="twitter:image" content="https://emyotyyy.github.io/assets/og.png" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='28' font-family='serif' fill='%237aa2f7'%3E%CE%BB%3C/text%3E%3C/svg%3E" />
 
     <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -43,7 +70,9 @@
           <a href="#tromp">Lambda</a>
           <a href="#workbench">Workbench</a>
           <a href="#games">Games</a>
+          <a href="#elsewhere">Else</a>
           <a href="#index">Everything</a>
+          <a href="#about">About</a>
           <div class="theme" id="theme">
             <button
               class="theme__button"
@@ -452,6 +481,159 @@
         </div>
       </section>
 
+      <!-- ─────────────────────────────────────────── everything else ── -->
+      <section class="section shelf" id="elsewhere">
+        <div class="wrap">
+          <div class="section__head" data-reveal>
+            <h2>Not all of it is a lambda.</h2>
+            <p>
+              Six other things, in six other directions. One of them ships as an installer, one
+              of them runs a village at night, and one of them is a flappy bird from a tutorial.
+            </p>
+          </div>
+
+          <div class="shelf__grid">
+            <!-- Sheaf: source on the left, a compiled page on the right, which
+                 is the whole point of the application in one picture. -->
+            <article class="shelf__card shelf__card--wide" data-reveal style="--i: 0">
+              <div class="editor" aria-hidden="true">
+                <div class="editor__bar"><span></span><span></span><span></span></div>
+                <div class="editor__panes">
+                  <pre class="editor__src mono"><span class="tex-cmd">\documentclass</span>{article}
+<span class="tex-cmd">\begin</span>{document}
+<span class="tex-cmd">\section</span>{Normalisation}
+Every term either reaches a
+normal form or it does not,
+and no one can tell you which.
+<span class="tex-cmd">\[</span> \int_0^\infty e^{-x^2}\,dx <span class="tex-cmd">\]</span>
+<span class="tex-cmd">\end</span>{document}</pre>
+                  <div class="editor__pdf">
+                    <span class="editor__sweep"></span>
+                    <span class="editor__h">1&nbsp;&nbsp;Normalisation</span>
+                    <span class="editor__line"></span>
+                    <span class="editor__line"></span>
+                    <span class="editor__line editor__line--short"></span>
+                    <span class="editor__formula">
+                      &#8747;<sub>0</sub><sup>&#8734;</sup>&nbsp;e<sup>&#8722;x&#178;</sup>&nbsp;dx
+                    </span>
+                    <span class="editor__line"></span>
+                    <span class="editor__line editor__line--short"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="shelf__text">
+                <h3>Sheaf</h3>
+                <p>
+                  A LaTeX editor that never takes your files anywhere. The project stays as
+                  ordinary folders on your own disk and compiles with the TeX distribution
+                  already installed on the machine, so nothing is uploaded and nothing is
+                  locked in. Electron, TypeScript and React, with two runtime dependencies in
+                  the whole application.
+                </p>
+                <p class="project__links">
+                  <a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Site</a>
+                  <a href="https://github.com/EmyoTyyy/sheaf" rel="noopener">Source</a>
+                  <a href="https://github.com/EmyoTyyy/sheaf/releases/latest" rel="noopener">Download</a>
+                </p>
+              </div>
+            </article>
+
+            <!-- Loups-Garous: the real cards from the project, fanned. -->
+            <article class="shelf__card shelf__card--wide shelf__card--flip" data-reveal style="--i: 1">
+              <div class="fan" aria-hidden="true">
+                <img class="fan__card" style="--i: -2; --a: 2" src="assets/lg-verso.webp" alt="" width="320" height="320" loading="lazy" decoding="async" />
+                <img class="fan__card" style="--i: -1; --a: 1" src="assets/lg-voyante.webp" alt="" width="320" height="320" loading="lazy" decoding="async" />
+                <img class="fan__card" style="--i: 0; --a: 0" src="assets/lg-loup-garou.webp" alt="" width="320" height="320" loading="lazy" decoding="async" />
+                <img class="fan__card" style="--i: 1; --a: 1" src="assets/lg-sorciere-du-crepuscule.webp" alt="" width="320" height="320" loading="lazy" decoding="async" />
+                <img class="fan__card" style="--i: 2; --a: 2" src="assets/lg-chasseur.webp" alt="" width="320" height="320" loading="lazy" decoding="async" />
+              </div>
+              <div class="shelf__text">
+                <h3>Loups-Garous</h3>
+                <p>
+                  Thirty-nine roles and thirty-five painted cards, in French, for the game that
+                  normally costs one person their evening. Around a table the phone goes round
+                  and deals. Online, the site itself takes the night: it calls each role in
+                  private, applies the powers, resolves the deaths and counts the votes, so the
+                  game master gets to play too. Nothing secret travels on the shared channel —
+                  every player has a second one that is only theirs.
+                </p>
+                <p class="shelf__meta">Not published yet. The art is mine, the night is long.</p>
+              </div>
+            </article>
+
+            <article class="shelf__card" data-reveal style="--i: 2">
+              <div class="mark mark--pot" aria-hidden="true">
+                <svg viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                  <path class="steam" d="M24 20c0-5 4-5 4-10s-4-5-4-8" />
+                  <path class="steam" d="M32 18c0-5 4-5 4-10s-4-5-4-8" />
+                  <path class="steam" d="M40 20c0-5 4-5 4-10s-4-5-4-8" />
+                  <path d="M12 26h40v14a8 8 0 0 1-8 8H20a8 8 0 0 1-8-8z" />
+                  <path d="M8 26h48M52 30h6M12 30H6" />
+                </svg>
+              </div>
+              <h3>EasyCookAI</h3>
+              <p>
+                The model is not a chatbot bolted on the side: it finds recipes on the real web,
+                imports them, rewrites them when you ask, and rides along while you cook.
+              </p>
+            </article>
+
+            <article class="shelf__card" data-reveal style="--i: 3">
+              <div class="mark mark--swap" aria-hidden="true">
+                <svg viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path class="swap-a" d="M14 22h30l-7-7M50 34H20l7 7" />
+                  <circle cx="14" cy="34" r="5" />
+                  <circle cx="50" cy="22" r="5" />
+                </svg>
+              </div>
+              <h3>SkillSwap Hub</h3>
+              <p>
+                Trade skills, not money. The entire backend is <span class="mono">http.server</span>
+                and <span class="mono">sqlite3</span> — a working platform with nothing to install.
+              </p>
+            </article>
+
+            <article class="shelf__card" data-reveal style="--i: 4">
+              <div class="mark mark--todo" aria-hidden="true">
+                <svg viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="10" y="8" width="12" height="12" rx="3" />
+                  <path d="M30 14h24" />
+                  <rect x="10" y="26" width="12" height="12" rx="3" />
+                  <path d="M30 32h18" />
+                  <rect x="10" y="44" width="12" height="12" rx="3" />
+                  <path d="M30 50h21" />
+                  <path class="tick" d="M12.5 14.5l3 3 6-6.5" />
+                </svg>
+              </div>
+              <h3>TODO</h3>
+              <p>
+                Folder, then file, then task. A Node server of no dependencies that saves
+                everything as real files, readable with or without the app.
+              </p>
+            </article>
+
+            <article class="shelf__card" data-reveal style="--i: 5">
+              <div class="mark mark--bird" aria-hidden="true">
+                <svg viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+                  <path d="M6 2v18h10V2M6 54V36h10v18" />
+                  <path d="M52 2v14h10V2M52 54V32h10v22" />
+                  <g class="bird">
+                    <circle cx="32" cy="28" r="7" />
+                    <path d="M39 27l5 2-5 2" />
+                    <path d="M27 27h6l-3 5z" />
+                  </g>
+                </svg>
+              </div>
+              <h3>Flipy Bloup</h3>
+              <p>
+                A flappy bird, from the Unity tutorial, in 2025. It is on this page because
+                everyone starts somewhere and pretending otherwise would be silly.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <!-- ──────────────────────────────────────────── the index ── -->
       <section class="section index" id="index">
         <div class="wrap">
@@ -465,27 +647,65 @@
           </div>
 
           <div class="query" data-reveal>
-            <pre class="query__sql mono"><code><span class="kw">SELECT</span> name, made_of, where_it_lives
-<span class="kw">FROM</span>   projects
-<span class="kw">ORDER</span> <span class="kw">BY</span> started <span class="kw">DESC</span>;</code></pre>
+            <div class="query__console">
+              <span class="query__prompt mono" aria-hidden="true">sqlite&gt;</span>
+              <div class="query__editor">
+                <pre class="query__paint mono" id="sql-paint" aria-hidden="true"></pre>
+                <textarea
+                  class="query__input mono"
+                  id="sql"
+                  rows="3"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  autocomplete="off"
+                  aria-label="SQL query, runs as you type"
+                >SELECT name, made_of, where_it_lives
+FROM   projects
+ORDER BY started DESC;</textarea>
+              </div>
+            </div>
+
+            <div class="query__chips" role="group" aria-label="Example queries">
+              <button type="button" data-sql="SELECT name, made_of, where_it_lives&#10;FROM   projects&#10;ORDER BY started DESC;">all of it</button>
+              <button type="button" data-sql="SELECT name, made_of&#10;FROM   projects&#10;WHERE  deps = 0;">nothing installed</button>
+              <button type="button" data-sql="SELECT name, started, where_it_lives&#10;FROM   projects&#10;WHERE  kind = 'game'&#10;ORDER BY started;">only the games</button>
+              <button type="button" data-sql="SELECT * FROM projects&#10;WHERE made_of LIKE '%JS%' OR made_of LIKE '%JavaScript%'&#10;ORDER BY started DESC LIMIT 5;">anything in JS</button>
+              <button type="button" data-sql="SELECT count(*) FROM projects;">how many</button>
+            </div>
 
             <div class="query__scroll">
+              <!-- These rows are the answer to the query above, written out so
+                   the index still reads with JavaScript off. With it on, the
+                   console replaces them on every keystroke. -->
               <table class="query__table">
-                <thead>
+                <thead id="sql-head">
                   <tr>
                     <th>name</th>
                     <th>made_of</th>
                     <th>where_it_lives</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="sql-body">
                   <tr>
                     <td><a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Sheaf</a></td>
                     <td class="mono">Electron, TypeScript, React</td>
-                    <td>
-                      A local-first LaTeX editor. Projects stay as ordinary files and compile with
-                      the TeX distribution already on your machine.
-                    </td>
+                    <td>A local-first LaTeX editor. Projects stay as ordinary files and compile with the TeX distribution already on your machine.</td>
+                  </tr>
+                  <tr>
+                    <td>Loups-Garous</td>
+                    <td class="mono">HTML, CSS, JS</td>
+                    <td>Thirty-nine roles, and the site can run the night itself.</td>
+                  </tr>
+                  <tr>
+                    <td>EasyCookAI</td>
+                    <td class="mono">HTML, CSS, JS</td>
+                    <td>A recipe app where the model finds recipes on the real web, imports them, rewrites them on request, and rides along while you cook.</td>
+                  </tr>
+                  <tr>
+                    <td>TODO</td>
+                    <td class="mono">HTML, CSS, JS, Node</td>
+                    <td>Yes, I made my own TODO app. A tiny zero-dependency server that persists everything as real files you can read without the app.</td>
                   </tr>
                   <tr>
                     <td><a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">emyot.fun</a></td>
@@ -493,29 +713,24 @@
                     <td>The games shelf. Only a few games but a lot of hours of gameplay available.</td>
                   </tr>
                   <tr>
-                    <td>EasyCookAI</td>
-                    <td class="mono">HTML, CSS, JS</td>
-                    <td>
-                      A recipe app where the model finds recipes on the real web, imports them, rewrites 
-                      them on request, and rides along while you cook.
-                    </td>
+                    <td><a href="https://emyotyyy.github.io/emyot.fun/#coreloom" rel="noopener">Coreloom</a></td>
+                    <td class="mono">JavaScript</td>
+                    <td>Wire up chips, write assembly, twenty-three assignments.</td>
                   </tr>
                   <tr>
-                    <td>SkillSwap Hub</td>
-                    <td class="mono">Python stdlib, SQLite</td>
-                    <td>
-                      Trade skills, not money. A peer-to-peer learning platform whose entire backend
-                      is <span class="mono">http.server</span> and
-                      <span class="mono">sqlite3</span>. No pip install.
-                    </td>
+                    <td><a href="https://emyotyyy.github.io/emyot.fun/#decay-heat" rel="noopener">Decay Heat</a></td>
+                    <td class="mono">JavaScript</td>
+                    <td>A reactor night shift, simulated honestly enough to cascade.</td>
                   </tr>
                   <tr>
-                    <td>TODO</td>
-                    <td class="mono">HTML, CSS, JS, Node</td>
-                    <td>
-                      Yes, I made my own TODO app. A tiny zero-dependency server that persists
-                      everything as real files you can read without the app.
-                    </td>
+                    <td><a href="https://emyotyyy.github.io/emyot.fun/#drowned-lexicon" rel="noopener">The Drowned Lexicon</a></td>
+                    <td class="mono">JavaScript</td>
+                    <td>Ninety signs, no dictionary, a new language every seed.</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://emyotyyy.github.io/emyot.fun/#shifting-mansion" rel="noopener">The Shifting Mansion</a></td>
+                    <td class="mono">JavaScript</td>
+                    <td>A house that rearranges itself, five nights running.</td>
                   </tr>
                   <tr>
                     <td><a href="https://emyotyyy.github.io/detour/" rel="noopener">Detour</a></td>
@@ -523,29 +738,29 @@
                     <td>Quoridor-style tactical game.</td>
                   </tr>
                   <tr>
-                    <td>
-                      <a href="https://emyotyyy.github.io/sequencelab-js/" rel="noopener">SeQuenceLab</a>
-                    </td>
+                    <td><a href="https://emyotyyy.github.io/sequencelab-js/" rel="noopener">SeQuenceLab</a></td>
                     <td class="mono">JavaScript, SQL</td>
-                    <td>
-                      Explore a database with real SQL in a browser tab. Local first, then rebuilt so
-                      it could be hosted with no server behind it. Made primarily for school.
-                    </td>
+                    <td>Explore a database with real SQL in a browser tab. Local first, then rebuilt so it could be hosted with no server behind it. Made primarily for school.</td>
                   </tr>
                   <tr>
-                    <td>
-                      <a href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">Tromp Diagrams</a>
-                    </td>
-                    <td class="mono">HTML, CSS, JS</td>
-                    <td>Lambda calculus, drawn. The one this whole page is built out of.</td>
+                    <td>SkillSwap Hub</td>
+                    <td class="mono">Python stdlib, SQLite</td>
+                    <td>Trade skills, not money. A peer-to-peer learning platform whose entire backend is http.server and sqlite3. No pip install.</td>
                   </tr>
                   <tr>
                     <td>The Mansion</td>
                     <td class="mono">Unity, C#</td>
-                    <td>
-                      The original: a mansion with bossfights. Later reborn
-                      in a browser as The Shifting Mansion.
-                    </td>
+                    <td>The original: a mansion with bossfights. Later reborn in a browser as The Shifting Mansion.</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">Tromp Diagrams</a></td>
+                    <td class="mono">HTML, CSS, JS</td>
+                    <td>Lambda calculus, drawn. The one this whole page is built out of.</td>
+                  </tr>
+                  <tr>
+                    <td>Flipy Bloup</td>
+                    <td class="mono">Unity, C#</td>
+                    <td>A flappy bird, from the tutorial. Everyone starts somewhere.</td>
                   </tr>
                   <tr>
                     <td>HTML Crafting Table</td>
@@ -556,7 +771,7 @@
               </table>
             </div>
 
-            <p class="query__note mono">10 rows &#183; 0 dependencies in most of them</p>
+            <p class="query__note mono" id="sql-note">16 rows &#183; nothing installed in eleven of them</p>
           </div>
         </div>
       </section>
@@ -575,22 +790,66 @@
               <span class="timeline__what"><strong>HTML Crafting Table.</strong> Flask, SQL, Jinja2. A school project that got out of hand.</span>
             </li>
             <li data-reveal style="--i: 1">
+              <span class="timeline__when mono">Sep 2025</span>
+              <span class="timeline__what"><strong>Flipy Bloup.</strong> A flappy bird, from the Unity tutorial. My first thing with a game loop in it.</span>
+            </li>
+            <li data-reveal style="--i: 2">
               <span class="timeline__when mono">May 2026</span>
               <span class="timeline__what"><strong>Tromp Diagrams.</strong> Lambda calculus, drawn. The one I keep coming back to.</span>
             </li>
-            <li data-reveal style="--i: 2">
+            <li data-reveal style="--i: 3">
               <span class="timeline__when mono">Jun 2026</span>
               <span class="timeline__what"><strong>SeQuenceLab</strong>, then a browser-only rebuild of it a day later. <strong>Detour</strong> the same month.</span>
             </li>
-            <li data-reveal style="--i: 3">
+            <li data-reveal style="--i: 4">
               <span class="timeline__when mono">Jul 2026</span>
               <span class="timeline__what"><strong>emyot.fun.</strong> The games stopped being scattered and got a home.</span>
             </li>
-            <li data-reveal style="--i: 4">
+            <li data-reveal style="--i: 5">
               <span class="timeline__when mono">Aug 2026</span>
               <span class="timeline__what"><strong>EasyCookAI</strong>, and <strong>Sheaf</strong>, the first one that ships as a real installable application, on Linux and Windows.</span>
             </li>
           </ol>
+        </div>
+      </section>
+      <!-- ─────────────────────────────────────────────────── about ── -->
+      <section class="section about" id="about">
+        <div class="wrap about__layout">
+          <div class="about__text" data-reveal>
+            <p class="eyebrow">About</p>
+            <h2>Hi, I'm EmyoT.</h2>
+            <p>
+              I like ideas that turn out to be simpler than they look, and I like being able to
+              see them work. That is most of what is on this page: a calculus with three rules
+              that can compute anything, a database you can ask a question in a sentence, a
+              crafting grid where the whole game is which square you put things in.
+            </p>
+            <p>
+              I build nearly all of it without a framework, a build step or a package manager.
+              Not out of principle, but because I want to still understand it a year from now,
+              and because a folder of files will open on any machine for as long as browsers
+              exist. Most of it happens at night.
+            </p>
+            <p>
+              If you got something out of one of these, or found something broken, or just want
+              to argue about whether Omega should be allowed to exist, write to me.
+            </p>
+
+            <div class="about__actions">
+              <a class="button button--primary" href="mailto:emyotpro@gmail.com">
+                emyotpro@gmail.com
+              </a>
+              <a class="button button--ghost" href="now.html">What I'm doing now</a>
+            </div>
+          </div>
+
+          <!-- The first two are what the query above actually returns. -->
+          <ul class="about__stats" data-reveal>
+            <li><strong>16</strong><span>projects on this page</span></li>
+            <li><strong>11</strong><span>with nothing to install</span></li>
+            <li><strong>3</strong><span>scripts behind this site</span></li>
+            <li><strong>2025</strong><span>the first one that counted</span></li>
+          </ul>
         </div>
       </section>
     </main>
@@ -601,7 +860,9 @@
         <div class="footer__text">
           <p><strong>EmyoT</strong>. Still mostly at night.</p>
           <nav>
+            <a href="mailto:emyotpro@gmail.com">Email</a>
             <a href="https://github.com/EmyoTyyy" rel="noopener">GitHub</a>
+            <a href="now.html">Now</a>
             <a href="https://emyotyyy.github.io/tromp_diagrams/" rel="noopener">Tromp Diagrams</a>
             <a href="https://emyotyyy.github.io/sheaf/" rel="noopener">Sheaf</a>
             <a href="https://emyotyyy.github.io/emyot.fun/" rel="noopener">Games</a>
@@ -612,6 +873,8 @@
 
     <script src="reduction.js"></script>
     <script src="recipes.js"></script>
+    <script src="projects.js"></script>
+    <script src="sql.js"></script>
     <script src="site.js"></script>
   </body>
 </html>

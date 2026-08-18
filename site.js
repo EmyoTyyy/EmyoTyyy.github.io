@@ -330,6 +330,178 @@
     output()
   }
 
+  /* ─────────────────────────────────────────────────── the console ── */
+
+  var sqlInput = document.getElementById('sql')
+  var sqlPaint = document.getElementById('sql-paint')
+  var sqlHead = document.getElementById('sql-head')
+  var sqlBody = document.getElementById('sql-body')
+  var sqlNote = document.getElementById('sql-note')
+
+  if (sqlInput && window.MiniSQL && window.PROJECTS) {
+    var source = window.PROJECTS
+    var queryBox = sqlInput.closest('.query')
+    var MONO_COLUMNS = { made_of: 1, started: 1, deps: 1, kind: 1, 'count(*)': 1 }
+
+    // Colour only. The parser two files over is the thing that has to be
+    // right about SQL; this only has to be right about where the words are.
+    var PAINT = /(--[^\n]*)|('[^']*')|(\b\d+(?:\.\d+)?\b)|\b(SELECT|FROM|WHERE|ORDER|BY|LIMIT|AND|OR|NOT|LIKE|ASC|DESC|IN|COUNT)\b/gi
+
+    function esc(text) {
+      return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    }
+
+    function repaint() {
+      var text = sqlInput.value
+      var out = ''
+      var last = 0
+      text.replace(PAINT, function (match, comment, string, number, keyword, offset) {
+        out += esc(text.slice(last, offset))
+        var cls = comment ? 'com' : string ? 'str' : number ? 'num' : 'kw'
+        out += '<span class="' + cls + '">' + esc(match) + '</span>'
+        last = offset + match.length
+        return match
+      })
+      // A trailing newline has nothing after it to give the box its last line,
+      // so the painted copy would come up one line short of the real one.
+      sqlPaint.innerHTML = out + esc(text.slice(last)) + (/\n$/.test(text) ? ' ' : '')
+    }
+
+    function cell(column, row) {
+      var td = document.createElement('td')
+      var value = row[column]
+      if (MONO_COLUMNS[column]) td.className = 'mono'
+
+      var href = column === 'name' && source.links[row.__name]
+      if (href) {
+        var a = document.createElement('a')
+        a.href = href
+        a.rel = 'noopener'
+        a.textContent = value
+        td.appendChild(a)
+      } else {
+        td.textContent = value
+      }
+      return td
+    }
+
+    function render(result) {
+      sqlHead.innerHTML = ''
+      sqlBody.innerHTML = ''
+
+      var headRow = document.createElement('tr')
+      result.columns.forEach(function (column) {
+        var th = document.createElement('th')
+        th.textContent = column
+        headRow.appendChild(th)
+      })
+      sqlHead.appendChild(headRow)
+
+      if (!result.rows.length) {
+        var empty = document.createElement('tr')
+        var td = document.createElement('td')
+        td.colSpan = result.columns.length
+        td.className = 'mono'
+        td.textContent = 'no rows'
+        empty.appendChild(td)
+        sqlBody.appendChild(empty)
+        return
+      }
+
+      result.rows.forEach(function (row) {
+        var tr = document.createElement('tr')
+        result.columns.forEach(function (column) {
+          tr.appendChild(cell(column, row))
+        })
+        sqlBody.appendChild(tr)
+      })
+    }
+
+    function execute() {
+      repaint()
+      try {
+        var result = window.MiniSQL.run(sqlInput.value, source)
+        render(result)
+        queryBox.classList.remove('query--error')
+        sqlNote.classList.remove('query__note--error')
+        sqlNote.textContent =
+          result.rows.length +
+          (result.rows.length === 1 ? ' row' : ' rows') +
+          ' · ' +
+          (result.ms < 10 ? result.ms.toFixed(2) : Math.round(result.ms)) +
+          ' ms'
+      } catch (error) {
+        // The rows on screen stay where they are, dimmed. Losing your last
+        // good answer the moment you mistype a word is not how a console works.
+        queryBox.classList.add('query--error')
+        sqlNote.classList.add('query__note--error')
+        sqlNote.textContent = 'Error: ' + error.message
+      }
+    }
+
+    sqlInput.addEventListener('input', execute)
+    sqlInput.addEventListener('scroll', function () {
+      sqlPaint.scrollTop = sqlInput.scrollTop
+    })
+
+    ;[].slice.call(document.querySelectorAll('.query__chips button')).forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        sqlInput.value = chip.dataset.sql
+        execute()
+        sqlInput.focus()
+        sqlInput.setSelectionRange(sqlInput.value.length, sqlInput.value.length)
+      })
+    })
+
+    execute()
+  }
+
+  /* ────────────────────────────────────────────── pointer parallax ── */
+
+  // The perspective origin is moved rather than the object, so this composes
+  // with the spin already running on both of them instead of fighting it.
+  var deep = [].slice.call(document.querySelectorAll('.lam3d, .bench__table'))
+
+  if (deep.length && !calm && window.matchMedia('(pointer: fine)').matches) {
+    var REACH = 52
+    var eased = deep.map(function () {
+      return { x: 0, y: 0, tx: 0, ty: 0 }
+    })
+    var settled = true
+
+    function step() {
+      var moving = false
+      for (var i = 0; i < deep.length; i += 1) {
+        var s = eased[i]
+        s.x += (s.tx - s.x) * 0.11
+        s.y += (s.ty - s.y) * 0.11
+        deep[i].style.setProperty('--px', s.x.toFixed(2) + 'px')
+        deep[i].style.setProperty('--py', s.y.toFixed(2) + 'px')
+        if (Math.abs(s.tx - s.x) > 0.2 || Math.abs(s.ty - s.y) > 0.2) moving = true
+      }
+      if (moving) requestAnimationFrame(step)
+      else settled = true
+    }
+
+    window.addEventListener(
+      'pointermove',
+      function (event) {
+        deep.forEach(function (node, i) {
+          var box = node.getBoundingClientRect()
+          var dx = (event.clientX - (box.left + box.width / 2)) / (window.innerWidth / 2)
+          var dy = (event.clientY - (box.top + box.height / 2)) / (window.innerHeight / 2)
+          eased[i].tx = Math.max(-1, Math.min(1, dx)) * REACH
+          eased[i].ty = Math.max(-1, Math.min(1, dy)) * REACH
+        })
+        if (settled) {
+          settled = false
+          requestAnimationFrame(step)
+        }
+      },
+      { passive: true }
+    )
+  }
+
   /* ──────────────────────────────────────────────────────── reveals ── */
 
   if (!calm && 'IntersectionObserver' in window) {

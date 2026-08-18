@@ -1428,20 +1428,133 @@ em {
   overflow: hidden;
 }
 
-.query__sql {
-  margin: 0;
-  padding: 16px 18px;
+/* The console. A textarea cannot colour its own text, so a painted copy of
+   the query sits underneath it in the same metrics and the textarea itself is
+   made transparent apart from its caret. Every property that could move a
+   glyph by half a pixel has to match on both, which is why the two share a
+   block below rather than being styled apart. */
+.query__console {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 15px 18px;
   border-bottom: 1px solid var(--border);
   background: var(--page);
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--text-body);
-  overflow-x: auto;
 }
 
-.query__sql .kw {
+.query__prompt {
+  flex: none;
+  padding-top: 1px;
+  font-size: 0.8rem;
+  line-height: 1.62;
+  color: var(--accent);
+  user-select: none;
+}
+
+.query__editor {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.query__paint,
+.query__input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.62;
+  letter-spacing: normal;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  tab-size: 2;
+}
+
+.query__paint {
+  color: var(--text-body);
+  min-height: 4.9em;
+  pointer-events: none;
+}
+
+.query__paint .kw {
   color: var(--accent);
   font-weight: 700;
+}
+
+.query__paint .str {
+  color: var(--text);
+  background: var(--accent-wash);
+  border-radius: 3px;
+}
+
+.query__paint .num {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.query__paint .com {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.query__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  overflow: hidden;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--accent);
+  outline: none;
+}
+
+.query__input::selection {
+  background: rgba(var(--accent-bright), 0.28);
+}
+
+.query__editor:focus-within {
+  outline: 2px solid rgba(var(--accent-bright), 0.5);
+  outline-offset: 6px;
+  border-radius: 3px;
+}
+
+.query__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-sunken);
+}
+
+.query__chips button {
+  padding: 4px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 0.76rem;
+  cursor: pointer;
+}
+
+.query__chips button:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* A failed query keeps the last good rows on screen, greyed, the way a real
+   console leaves the previous output above the error. */
+.query--error .query__scroll {
+  opacity: 0.42;
+}
+
+.query__note--error {
+  color: var(--accent);
 }
 
 .query__scroll {
@@ -1945,4 +2058,464 @@ em {
 
 .theme__swatch--system {
   background: linear-gradient(135deg, #f4f6f9 50%, #0e1013 50%);
+}
+
+/* ═══════════════════════════════════════════════ everything else ══ */
+
+.shelf__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.shelf__card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.shelf__card h3 {
+  margin: 0;
+  font-size: 1.16rem;
+}
+
+.shelf__card p {
+  margin: 0;
+  color: var(--text-body);
+  font-size: 0.95rem;
+}
+
+/* The two that earned a picture get the full width and stand side on. */
+.shelf__card--wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: 28px;
+}
+
+.shelf__text {
+  display: grid;
+  gap: 12px;
+}
+
+.shelf__meta {
+  color: var(--text-dim) !important;
+  font-size: 0.86rem !important;
+}
+
+@media (max-width: 860px) {
+  .shelf__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shelf__card--wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ───────────────────────────────────────────── sheaf: source, page ── */
+
+.editor {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+.editor__bar {
+  display: flex;
+  gap: 6px;
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--border);
+  background: var(--page);
+}
+
+.editor__bar span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+
+.editor__panes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 186px;
+}
+
+.editor__src {
+  margin: 0;
+  padding: 12px 13px;
+  border-right: 1px solid var(--border);
+  font-size: 0.62rem;
+  line-height: 1.72;
+  color: var(--text-dim);
+  white-space: pre;
+  overflow: hidden;
+}
+
+.editor__src .tex-cmd {
+  color: var(--accent);
+}
+
+/* The compiled side: a page, not a screenshot of one. */
+.editor__pdf {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 16px 15px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.editor__h {
+  font-family: var(--display);
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #16181c;
+}
+
+.editor__line {
+  height: 4px;
+  border-radius: 2px;
+  background: #d9dde3;
+}
+
+.editor__line--short {
+  width: 62%;
+}
+
+.editor__formula {
+  align-self: center;
+  margin: 3px 0;
+  font-family: var(--serif, Georgia, 'Times New Roman', serif);
+  font-size: 0.78rem;
+  color: #16181c;
+}
+
+/* One pass of the typesetter, every time the card is hovered or revealed. */
+.editor__sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 34px;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--accent-bright), 0),
+    rgba(var(--accent-bright), 0.22),
+    rgba(var(--accent-bright), 0)
+  );
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shelf__card:hover .editor__sweep {
+    animation: compile 1.15s ease-in-out;
+  }
+}
+
+@keyframes compile {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(200px);
+  }
+}
+
+/* ─────────────────────────────────────────── loups-garous: the fan ── */
+
+.fan {
+  position: relative;
+  /* Tall enough for the spread plus the rotation, or the outer cards cross the
+     bottom edge of the card they live in. */
+  height: 258px;
+  display: grid;
+  place-items: center;
+  perspective: 900px;
+}
+
+.fan__card {
+  position: absolute;
+  width: 118px;
+  height: 118px;
+  border-radius: 6px;
+  box-shadow: 0 10px 24px -12px rgba(10, 8, 14, 0.75);
+  /* Closed to begin with: the cards sit almost on top of each other, and the
+     spread is what the reveal and the hover are for. */
+  /* Spread is the resting state, so the hand is open for anyone arriving
+     without JavaScript. Only when the script is running does it start closed
+     and open on the way in. */
+  transform: rotate(calc(var(--i) * 9deg)) translateX(calc(var(--i) * 52px))
+    translateY(calc(var(--a) * 7px));
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  /* --a is |--i|, carried in the markup because CSS abs() is too new to rely
+     on: where it is missing the whole transform is dropped as invalid, and the
+     fan silently stays a stack. */
+  transition-delay: calc(var(--a) * 60ms);
+  z-index: 1;
+}
+
+.fan__card:nth-child(3) {
+  z-index: 2;
+}
+
+.js-reveal .fan__card {
+  transform: rotate(calc(var(--i) * 3deg)) translateX(calc(var(--i) * 12px));
+}
+
+.js-reveal .is-in .fan__card {
+  transform: rotate(calc(var(--i) * 9deg)) translateX(calc(var(--i) * 52px))
+    translateY(calc(var(--a) * 7px));
+}
+
+.shelf__card--flip:hover .fan__card {
+  transform: rotate(calc(var(--i) * 12deg)) translateX(calc(var(--i) * 64px))
+    translateY(calc(var(--a) * 6px - 10px)) scale(1.05);
+}
+
+/* ────────────────────────────────────────────── the smaller marks ── */
+
+.mark {
+  width: 64px;
+  height: 56px;
+  color: var(--accent);
+}
+
+.mark svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mark--pot .steam {
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shelf__card:hover .mark--pot .steam {
+    animation: rise 1.9s ease-in-out infinite;
+  }
+
+  .shelf__card:hover .mark--pot .steam:nth-child(2) {
+    animation-delay: 0.32s;
+  }
+
+  .shelf__card:hover .mark--pot .steam:nth-child(3) {
+    animation-delay: 0.64s;
+  }
+
+  .shelf__card:hover .mark--swap .swap-a {
+    animation: shuttle 1.5s ease-in-out infinite;
+  }
+
+  .shelf__card:hover .mark--bird .bird {
+    animation: flap 0.9s ease-in-out infinite;
+  }
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0.15;
+    transform: translateY(3px);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.15;
+    transform: translateY(3px);
+  }
+}
+
+@keyframes shuttle {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes flap {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(6deg);
+  }
+}
+
+/* The box is drawn empty and the tick is drawn on, so the list completes
+   itself while you look at it. */
+.mark--todo .tick {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+}
+
+.shelf__card:hover .mark--todo .tick {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 420ms ease 120ms;
+}
+
+/* Set by the pointer, read by the two things with depth. Both keep their own
+   animation; only the vanishing point moves, which is what makes them appear
+   to turn towards the cursor. */
+.lam3d,
+.bench__table {
+  perspective-origin: calc(50% + var(--px, 0px)) calc(50% + var(--py, 0px));
+}
+
+/* ══════════════════════════════════════════════════ about, pages ══ */
+
+.about__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+
+.about__text > p {
+  margin: 14px 0 0;
+  color: var(--text-body);
+  max-width: 56ch;
+}
+
+.about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+/* Four numbers, stacked, each one small enough to read in a glance. */
+.about__stats {
+  display: grid;
+  gap: 1px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.about__stats li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface);
+}
+
+.about__stats strong {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--accent);
+  /* Wide enough for a year, so all four labels start at the same place. */
+  min-width: 4ch;
+}
+
+.about__stats span {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+@media (max-width: 860px) {
+  .about__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ─────────────────────────────────────── the pages that are pages ── */
+
+/* An inner column rather than a narrowed .wrap, so the text starts on the
+   same line as the wordmark above it instead of drifting to the middle. */
+.page__wrap {
+  max-width: 68ch;
+}
+
+.page .lede {
+  max-width: none;
+}
+
+.page h1 {
+  margin: 6px 0 0;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.page h2 {
+  margin: 40px 0 0;
+  font-size: 1.24rem;
+}
+
+.page p {
+  margin: 14px 0 0;
+  color: var(--text-body);
+}
+
+.page__stamp {
+  margin-top: 14px !important;
+  font-size: 0.76rem;
+  color: var(--text-dim) !important;
+}
+
+.page__list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.page__list li {
+  padding-left: 18px;
+  border-left: 2px solid var(--border-strong);
+  color: var(--text-body);
+}
+
+.page__list strong {
+  color: var(--text);
+}
+
+.page a:not(.button) {
+  color: var(--accent);
+}
+
+/* The 404 has no nav above it, so it needs the room the nav would have taken. */
+.page--404 {
+  padding-top: clamp(64px, 12vh, 140px);
+}
+
+.page--404 .query {
+  margin-top: 26px;
+}
+
+/* No one is typing into this one, so it does not need room to type in. */
+.page--404 .query__paint {
+  min-height: 0;
+}
+
+.page--404 .button {
+  margin: 26px 10px 0 0;
 }

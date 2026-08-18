@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>No such page — EmyoT</title>
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='28' font-family='serif' fill='%237aa2f7'%3E%CE%BB%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+
+    <script>
+      try {
+        var saved = localStorage.getItem('emyot-theme')
+        if (saved && saved !== 'system') {
+          document.documentElement.setAttribute('data-theme', saved)
+        }
+      } catch (e) {}
+    </script>
+  </head>
+
+  <body>
+    <main id="main">
+      <section class="section page page--404">
+        <div class="wrap">
+          <div class="page__wrap">
+            <p class="eyebrow">404</p>
+            <h1>No such page.</h1>
+
+            <!-- The index on the front page is a real console, so it seemed only
+                 right to report this the way that console would. -->
+            <div class="query">
+              <div class="query__console">
+                <span class="query__prompt mono" aria-hidden="true">sqlite&gt;</span>
+                <div class="query__editor">
+                  <pre class="query__paint mono" id="miss"><span class="kw">SELECT</span> * <span class="kw">FROM</span> pages <span class="kw">WHERE</span> url = <span class="str">'/'</span>;</pre>
+                </div>
+              </div>
+              <p class="query__note mono query__note--error">Error: no such row</p>
+          </div>
+
+          <p class="lede">
+            Whatever was here is not here. The things that definitely exist are through the door
+            below.
+          </p>
+
+          <p>
+            <a class="button button--primary" href="/">Back to the front</a>
+            <a class="button button--ghost" href="/#index">See everything</a>
+          </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Quote back the path that was actually asked for, escaped, because it
+      // comes from the address bar and lands in the page as markup.
+      ;(function () {
+        var path = (location.pathname || '/') + (location.search || '')
+        var safe = path.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        document.getElementById('miss').innerHTML =
+          '<span class="kw">SELECT</span> * <span class="kw">FROM</span> pages ' +
+          '<span class="kw">WHERE</span> url = <span class="str">\'' + safe + '\'</span>;'
+      })()
+    </script>
+  </body>
+</html>
